@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Asset {
+  id        Int       @id @default(autoincrement())
+  productId Int
+  assetId   Int?
+  url       String
+  publicId  String
+  type      AssetType
+  altText   String?
+  Review    Review?   @relation(fields: [assetId], references: [id])
+  Product   Product   @relation(fields: [productId], references: [id])
+}
+
+model Category {
+  id          Int           @id @default(autoincrement())
+  name        String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  Product     Product[]
+  SubCategory SubCategory[]
+}
+
+model Product {
+  id            Int         @id @default(autoincrement())
+  slug          String      @unique
+  title         String
+  description   String?
+  price         Float
+  comparePrice  Float?
+  categoryId    Int
+  subCategoryId Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime
+  Asset         Asset[]
+  Category      Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  SubCategory   SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+  Review        Review[]
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  Asset     Asset[]
+  Product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model SubCategory {
+  id         Int       @id @default(autoincrement())
+  categoryId Int
+  name       String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime
+  Product    Product[]
+  Category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+enum AssetType {
+  IMAGE
+  VIDEO
+}

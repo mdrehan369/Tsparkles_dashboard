@@ -40,3 +40,5 @@ pnpm-debug.log*
 # Misc
 .DS_Store
 Thumbs.db
+
+/generated/prisma
