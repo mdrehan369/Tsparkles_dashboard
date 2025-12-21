@@ -21,9 +21,9 @@ model Asset {
 
 model Category {
   id          Int           @id @default(autoincrement())
-  name        String
+  name        String        @unique
   createdAt   DateTime      @default(now())
-  updatedAt   DateTime
+  updatedAt   DateTime      @updatedAt
   Product     Product[]
   SubCategory SubCategory[]
 }
@@ -38,7 +38,7 @@ model Product {
   categoryId    Int
   subCategoryId Int
   createdAt     DateTime    @default(now())
-  updatedAt     DateTime
+  updatedAt     DateTime    @updatedAt
   Asset         Asset[]
   Category      Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   SubCategory   SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
@@ -51,7 +51,7 @@ model Review {
   rating    Int
   comment   String?
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   Asset     Asset[]
   Product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
@@ -59,9 +59,9 @@ model Review {
 model SubCategory {
   id         Int       @id @default(autoincrement())
   categoryId Int
-  name       String
+  name       String    @unique
   createdAt  DateTime  @default(now())
-  updatedAt  DateTime
+  updatedAt  DateTime  @updatedAt
   Product    Product[]
   Category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
