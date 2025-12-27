@@ -232,7 +232,7 @@ export type ReviewWhereInput = {
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
-  Asset?: Prisma.AssetListRelationFilter
+  Assets?: Prisma.AssetListRelationFilter
   Product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
 }
 
@@ -243,7 +243,7 @@ export type ReviewOrderByWithRelationInput = {
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  Asset?: Prisma.AssetOrderByRelationAggregateInput
+  Assets?: Prisma.AssetOrderByRelationAggregateInput
   Product?: Prisma.ProductOrderByWithRelationInput
 }
 
@@ -257,7 +257,7 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
-  Asset?: Prisma.AssetListRelationFilter
+  Assets?: Prisma.AssetListRelationFilter
   Product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
 }, "id">
 
@@ -292,7 +292,7 @@ export type ReviewCreateInput = {
   comment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  Asset?: Prisma.AssetCreateNestedManyWithoutReviewInput
+  Assets?: Prisma.AssetCreateNestedManyWithoutReviewInput
   Product: Prisma.ProductCreateNestedOneWithoutReviewInput
 }
 
@@ -303,7 +303,7 @@ export type ReviewUncheckedCreateInput = {
   comment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  Asset?: Prisma.AssetUncheckedCreateNestedManyWithoutReviewInput
+  Assets?: Prisma.AssetUncheckedCreateNestedManyWithoutReviewInput
 }
 
 export type ReviewUpdateInput = {
@@ -311,7 +311,7 @@ export type ReviewUpdateInput = {
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Asset?: Prisma.AssetUpdateManyWithoutReviewNestedInput
+  Assets?: Prisma.AssetUpdateManyWithoutReviewNestedInput
   Product?: Prisma.ProductUpdateOneRequiredWithoutReviewNestedInput
 }
 
@@ -322,7 +322,7 @@ export type ReviewUncheckedUpdateInput = {
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Asset?: Prisma.AssetUncheckedUpdateManyWithoutReviewNestedInput
+  Assets?: Prisma.AssetUncheckedUpdateManyWithoutReviewNestedInput
 }
 
 export type ReviewCreateManyInput = {
@@ -404,20 +404,20 @@ export type ReviewSumOrderByAggregateInput = {
   rating?: Prisma.SortOrder
 }
 
-export type ReviewCreateNestedOneWithoutAssetInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutAssetInput, Prisma.ReviewUncheckedCreateWithoutAssetInput>
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutAssetInput
+export type ReviewCreateNestedOneWithoutAssetsInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutAssetsInput, Prisma.ReviewUncheckedCreateWithoutAssetsInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutAssetsInput
   connect?: Prisma.ReviewWhereUniqueInput
 }
 
-export type ReviewUpdateOneWithoutAssetNestedInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutAssetInput, Prisma.ReviewUncheckedCreateWithoutAssetInput>
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutAssetInput
-  upsert?: Prisma.ReviewUpsertWithoutAssetInput
+export type ReviewUpdateOneWithoutAssetsNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutAssetsInput, Prisma.ReviewUncheckedCreateWithoutAssetsInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutAssetsInput
+  upsert?: Prisma.ReviewUpsertWithoutAssetsInput
   disconnect?: Prisma.ReviewWhereInput | boolean
   delete?: Prisma.ReviewWhereInput | boolean
   connect?: Prisma.ReviewWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutAssetInput, Prisma.ReviewUpdateWithoutAssetInput>, Prisma.ReviewUncheckedUpdateWithoutAssetInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutAssetsInput, Prisma.ReviewUpdateWithoutAssetsInput>, Prisma.ReviewUncheckedUpdateWithoutAssetsInput>
 }
 
 export type ReviewCreateNestedManyWithoutProductInput = {
@@ -462,7 +462,7 @@ export type ReviewUncheckedUpdateManyWithoutProductNestedInput = {
   deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
 }
 
-export type ReviewCreateWithoutAssetInput = {
+export type ReviewCreateWithoutAssetsInput = {
   rating: number
   comment?: string | null
   createdAt?: Date | string
@@ -470,7 +470,7 @@ export type ReviewCreateWithoutAssetInput = {
   Product: Prisma.ProductCreateNestedOneWithoutReviewInput
 }
 
-export type ReviewUncheckedCreateWithoutAssetInput = {
+export type ReviewUncheckedCreateWithoutAssetsInput = {
   id?: number
   productId: number
   rating: number
@@ -479,23 +479,23 @@ export type ReviewUncheckedCreateWithoutAssetInput = {
   updatedAt?: Date | string
 }
 
-export type ReviewCreateOrConnectWithoutAssetInput = {
+export type ReviewCreateOrConnectWithoutAssetsInput = {
   where: Prisma.ReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutAssetInput, Prisma.ReviewUncheckedCreateWithoutAssetInput>
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutAssetsInput, Prisma.ReviewUncheckedCreateWithoutAssetsInput>
 }
 
-export type ReviewUpsertWithoutAssetInput = {
-  update: Prisma.XOR<Prisma.ReviewUpdateWithoutAssetInput, Prisma.ReviewUncheckedUpdateWithoutAssetInput>
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutAssetInput, Prisma.ReviewUncheckedCreateWithoutAssetInput>
+export type ReviewUpsertWithoutAssetsInput = {
+  update: Prisma.XOR<Prisma.ReviewUpdateWithoutAssetsInput, Prisma.ReviewUncheckedUpdateWithoutAssetsInput>
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutAssetsInput, Prisma.ReviewUncheckedCreateWithoutAssetsInput>
   where?: Prisma.ReviewWhereInput
 }
 
-export type ReviewUpdateToOneWithWhereWithoutAssetInput = {
+export type ReviewUpdateToOneWithWhereWithoutAssetsInput = {
   where?: Prisma.ReviewWhereInput
-  data: Prisma.XOR<Prisma.ReviewUpdateWithoutAssetInput, Prisma.ReviewUncheckedUpdateWithoutAssetInput>
+  data: Prisma.XOR<Prisma.ReviewUpdateWithoutAssetsInput, Prisma.ReviewUncheckedUpdateWithoutAssetsInput>
 }
 
-export type ReviewUpdateWithoutAssetInput = {
+export type ReviewUpdateWithoutAssetsInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -503,7 +503,7 @@ export type ReviewUpdateWithoutAssetInput = {
   Product?: Prisma.ProductUpdateOneRequiredWithoutReviewNestedInput
 }
 
-export type ReviewUncheckedUpdateWithoutAssetInput = {
+export type ReviewUncheckedUpdateWithoutAssetsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productId?: Prisma.IntFieldUpdateOperationsInput | number
   rating?: Prisma.IntFieldUpdateOperationsInput | number
@@ -517,7 +517,7 @@ export type ReviewCreateWithoutProductInput = {
   comment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  Asset?: Prisma.AssetCreateNestedManyWithoutReviewInput
+  Assets?: Prisma.AssetCreateNestedManyWithoutReviewInput
 }
 
 export type ReviewUncheckedCreateWithoutProductInput = {
@@ -526,7 +526,7 @@ export type ReviewUncheckedCreateWithoutProductInput = {
   comment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  Asset?: Prisma.AssetUncheckedCreateNestedManyWithoutReviewInput
+  Assets?: Prisma.AssetUncheckedCreateNestedManyWithoutReviewInput
 }
 
 export type ReviewCreateOrConnectWithoutProductInput = {
@@ -580,7 +580,7 @@ export type ReviewUpdateWithoutProductInput = {
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Asset?: Prisma.AssetUpdateManyWithoutReviewNestedInput
+  Assets?: Prisma.AssetUpdateManyWithoutReviewNestedInput
 }
 
 export type ReviewUncheckedUpdateWithoutProductInput = {
@@ -589,7 +589,7 @@ export type ReviewUncheckedUpdateWithoutProductInput = {
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Asset?: Prisma.AssetUncheckedUpdateManyWithoutReviewNestedInput
+  Assets?: Prisma.AssetUncheckedUpdateManyWithoutReviewNestedInput
 }
 
 export type ReviewUncheckedUpdateManyWithoutProductInput = {
@@ -606,11 +606,11 @@ export type ReviewUncheckedUpdateManyWithoutProductInput = {
  */
 
 export type ReviewCountOutputType = {
-  Asset: number
+  Assets: number
 }
 
 export type ReviewCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Asset?: boolean | ReviewCountOutputTypeCountAssetArgs
+  Assets?: boolean | ReviewCountOutputTypeCountAssetsArgs
 }
 
 /**
@@ -626,7 +626,7 @@ export type ReviewCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * ReviewCountOutputType without action
  */
-export type ReviewCountOutputTypeCountAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ReviewCountOutputTypeCountAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AssetWhereInput
 }
 
@@ -638,7 +638,7 @@ export type ReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   comment?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  Asset?: boolean | Prisma.Review$AssetArgs<ExtArgs>
+  Assets?: boolean | Prisma.Review$AssetsArgs<ExtArgs>
   Product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ReviewCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
@@ -674,7 +674,7 @@ export type ReviewSelectScalar = {
 
 export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "rating" | "comment" | "createdAt" | "updatedAt", ExtArgs["result"]["review"]>
 export type ReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Asset?: boolean | Prisma.Review$AssetArgs<ExtArgs>
+  Assets?: boolean | Prisma.Review$AssetsArgs<ExtArgs>
   Product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ReviewCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -688,7 +688,7 @@ export type ReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Review"
   objects: {
-    Asset: Prisma.$AssetPayload<ExtArgs>[]
+    Assets: Prisma.$AssetPayload<ExtArgs>[]
     Product: Prisma.$ProductPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1092,7 +1092,7 @@ readonly fields: ReviewFieldRefs;
  */
 export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Asset<T extends Prisma.Review$AssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Review$AssetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Assets<T extends Prisma.Review$AssetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Review$AssetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1525,9 +1525,9 @@ export type ReviewDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Review.Asset
+ * Review.Assets
  */
-export type Review$AssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Review$AssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Asset
    */

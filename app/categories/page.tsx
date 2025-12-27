@@ -8,11 +8,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import DashboardLayout from '@/components/dashboard/layout';
-import { Prisma } from '@/prisma/generated/prisma/client';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { categoryKeys } from '@/constants/querykeys';
 import { addCategory, deleteCategory, fetchAllCategories } from '@/queries/category';
 import SubCategoryHoverCard from '@/components/categories/HoverCard';
+import { CategoryWithSubCategory } from '@/types/category.types';
 
 export default function CategoriesPage() {
     const [newCategory, setNewCategory] = useState('');
@@ -21,11 +21,7 @@ export default function CategoriesPage() {
         data: categories,
         isLoading: loading,
         refetch,
-    } = useQuery<
-        Prisma.CategoryGetPayload<{
-            include: { SubCategory: { include: { Product: { include: { _count: true } } } } };
-        }>[]
-    >({
+    } = useQuery<CategoryWithSubCategory[]>({
         initialData: [],
         queryKey: categoryKeys.GET_ALL_CATEGORIES,
         queryFn: () => fetchAllCategories(1, 15, ''),

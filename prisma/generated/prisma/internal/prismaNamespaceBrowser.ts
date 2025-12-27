@@ -77,11 +77,11 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const AssetScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
-  assetId: 'assetId',
+  fileId: 'fileId',
   url: 'url',
-  publicId: 'publicId',
   type: 'type',
-  altText: 'altText'
+  altText: 'altText',
+  reviewId: 'reviewId'
 } as const
 
 export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
