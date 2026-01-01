@@ -1,11 +1,12 @@
 import { z } from 'zod';
 
 const envSchema = z.object({
-  DATABASE_URL: z.string().url(),
-  NEXT_PUBLIC_API_BASE_URL: z.string().url(),
-  NEXT_PUBLIC_APP_NAME: z.string(),
+    DATABASE_URL: z.string().url(),
+    NEXT_PUBLIC_API_BASE_URL: z.string().url(),
+    NEXT_PUBLIC_APP_NAME: z.string(),
 });
 
+//TODO
 const parsedEnv = envSchema.safeParse(process.env);
 // console.log(process.env);
 
@@ -22,7 +23,10 @@ const parsedEnv = envSchema.safeParse(process.env);
 //
 
 export const env = {
-  DATABASE_URL: process.env.DATABASE_URL,
-  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
+    DATABASE_URL: process.env.DATABASE_URL,
+    API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
+    IMAGEKIT_PRIVATE_KEY: process.env.IMAGEKIT_PRIVATE_KEY,
+    IMAGEKIT_PUBLIC_KEY: process.env.IMAGEKIT_PUBLIC_KEY,
+    IMAGEKIT_ID: process.env.IMAGEKIT_ID,
 };

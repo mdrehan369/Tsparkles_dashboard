@@ -10,3 +10,9 @@ export const AddProductFormSchema = z.object({
     category: z.number({ message: 'Category is required' }),
     subCategory: z.number({ message: 'Sub Category is required' }),
 });
+
+export const GetProductsQueryStringSchema = z.object({
+    page: z.number().optional().default(1),
+    limit: z.number().optional().default(15),
+    search: z.string().optional().default(''),
+});

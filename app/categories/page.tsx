@@ -54,84 +54,76 @@ export default function CategoriesPage() {
     };
 
     return (
-        <DashboardLayout>
-            <div className='space-y-6'>
-                <div>
-                    <h1 className='text-3xl font-light tracking-tight text-foreground'>
-                        Categories
-                    </h1>
-                    <p className='text-sm text-muted-foreground mt-2'>
-                        Manage your product categories
-                    </p>
-                </div>
+        <div className='space-y-6'>
+            <div>
+                <h1 className='text-3xl font-light tracking-tight text-foreground'>Categories</h1>
+                <p className='text-sm text-muted-foreground mt-2'>Manage your product categories</p>
+            </div>
 
-                <Card className='border-sidebar-border'>
-                    <CardHeader className='border-b border-sidebar-border'>
-                        <CardTitle className='text-lg font-light'>Add New Category</CardTitle>
-                    </CardHeader>
-                    <CardContent className='pt-6'>
-                        <form onSubmit={handleAddCategory} className='flex gap-2'>
-                            <Input
-                                placeholder='Category name'
-                                value={newCategory}
-                                onChange={(e) => setNewCategory(e.target.value)}
-                                className='flex-1'
-                            />
-                            <Button type='submit' className='gap-2'>
-                                <Plus size={16} />
-                                Add Category
-                            </Button>
-                        </form>
-                    </CardContent>
-                </Card>
+            <Card className='border-sidebar-border'>
+                <CardHeader className='border-b border-sidebar-border'>
+                    <CardTitle className='text-lg font-light'>Add New Category</CardTitle>
+                </CardHeader>
+                <CardContent className='pt-6'>
+                    <form onSubmit={handleAddCategory} className='flex gap-2'>
+                        <Input
+                            placeholder='Category name'
+                            value={newCategory}
+                            onChange={(e) => setNewCategory(e.target.value)}
+                            className='flex-1'
+                        />
+                        <Button type='submit' className='gap-2'>
+                            <Plus size={16} />
+                            Add Category
+                        </Button>
+                    </form>
+                </CardContent>
+            </Card>
 
-                <Card className='border-sidebar-border'>
-                    <CardHeader className='border-b border-sidebar-border'>
-                        <CardTitle className='text-lg font-light'>All Categories</CardTitle>
-                    </CardHeader>
-                    <CardContent className='pt-6'>
-                        {loading ? (
-                            <p className='text-muted-foreground'>Loading...</p>
-                        ) : categories.length === 0 ? (
-                            <p className='text-muted-foreground'>No categories yet</p>
-                        ) : (
-                            <div className='space-y-2'>
-                                {categories.map((category) => (
-                                    <div
-                                        key={category.id}
-                                        className='flex items-center justify-between p-4 rounded-lg border border-sidebar-border hover:bg-sidebar/50 transition-colors'
-                                    >
-                                        <div>
-                                            <p className='font-light text-foreground'>
-                                                {category.name}
-                                            </p>
-                                            <p className='text-xs text-muted-foreground'>
-                                                Created{' '}
-                                                {new Date(category.createdAt).toLocaleDateString()}
-                                            </p>
-                                        </div>
-                                        <div className='flex items-center gap-2'>
-                                            <SubCategoryHoverCard category={category} />
-                                            <div className='flex gap-2'>
-                                                <Button
-                                                    size='sm'
-                                                    variant='outline'
-                                                    className='hover:bg-red-200 hover:text-red-600 cursor-pointer'
-                                                    onClick={() =>
-                                                        handleDeleteCategory(category.name)
-                                                    }
-                                                >
-                                                    <Trash2 size={14} />
-                                                </Button>
-                                            </div>
+            <Card className='border-sidebar-border'>
+                <CardHeader className='border-b border-sidebar-border'>
+                    <CardTitle className='text-lg font-light'>All Categories</CardTitle>
+                </CardHeader>
+                <CardContent className='pt-6'>
+                    {loading ? (
+                        <p className='text-muted-foreground'>Loading...</p>
+                    ) : categories.length === 0 ? (
+                        <p className='text-muted-foreground'>No categories yet</p>
+                    ) : (
+                        <div className='space-y-2'>
+                            {categories.map((category) => (
+                                <div
+                                    key={category.id}
+                                    className='flex items-center justify-between p-4 rounded-lg border border-sidebar-border hover:bg-sidebar/50 transition-colors'
+                                >
+                                    <div>
+                                        <p className='font-light text-foreground'>
+                                            {category.name}
+                                        </p>
+                                        <p className='text-xs text-muted-foreground'>
+                                            Created{' '}
+                                            {new Date(category.createdAt).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                    <div className='flex items-center gap-2'>
+                                        <SubCategoryHoverCard category={category} />
+                                        <div className='flex gap-2'>
+                                            <Button
+                                                size='sm'
+                                                variant='outline'
+                                                className='hover:bg-red-200 hover:text-red-600 cursor-pointer'
+                                                onClick={() => handleDeleteCategory(category.name)}
+                                            >
+                                                <Trash2 size={14} />
+                                            </Button>
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-                        )}
-                    </CardContent>
-                </Card>
-            </div>
-        </DashboardLayout>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
+        </div>
     );
 }

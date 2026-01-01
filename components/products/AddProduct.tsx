@@ -11,7 +11,6 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { CategoryWithSubCategory } from '@/types/category.types';
 import { AddProductFormSchema } from '@/zod/product';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
@@ -20,14 +19,18 @@ import FileUpload from './FileUpload';
 import { useState } from 'react';
 import uploadAsset from '@/utils/upload';
 import { addProduct } from '@/actions/products';
+import { CategoryWithSubCategory } from '@/types/category.types';
+import { fetchAllCategories } from '@/queries/category';
+import { categoryKeys } from '@/constants/querykeys';
+import { useQuery } from '@tanstack/react-query';
 
-export default function AddProduct({
-    categories,
-    onClose,
-}: {
-    categories: CategoryWithSubCategory[];
-    onClose: () => void;
-}) {
+export default function AddProduct({ onClose }: { onClose: () => void }) {
+    const { data: categories } = useQuery<CategoryWithSubCategory[]>({
+        initialData: [],
+        queryKey: categoryKeys.GET_ALL_CATEGORIES,
+        queryFn: () => fetchAllCategories(1, 15, ''),
+    });
+
     const {
         register,
         handleSubmit,

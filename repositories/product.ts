@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@/prisma/generated/prisma/client';
 import { AddProductParams } from '@/types/product.types';
 
 async function createProduct({
@@ -34,4 +35,35 @@ async function createProduct({
     return newProduct;
 }
 
-export { createProduct };
+async function getProducts({
+    page = 1,
+    limit = 15,
+    search = '',
+}: {
+    page?: number;
+    limit?: number;
+    search?: string;
+}) {
+    const query: Prisma.ProductWhereInput = {};
+
+    if (search && search != '')
+        query['title'] = {
+            startsWith: search,
+            mode: 'insensitive',
+        };
+
+    const products = await prisma.product.findMany({
+        where: query,
+        include: {
+            Asset: true,
+            Category: true,
+            SubCategory: true,
+        },
+        skip: (page - 1) * limit,
+        take: limit,
+    });
+
+    return products;
+}
+
+export { createProduct, getProducts };
