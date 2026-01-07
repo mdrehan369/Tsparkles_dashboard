@@ -23,6 +23,7 @@ import { CategoryWithSubCategory } from '@/types/category.types';
 import { fetchAllCategories } from '@/queries/category';
 import { categoryKeys } from '@/constants/querykeys';
 import { useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 export default function AddProduct({ onClose }: { onClose: () => void }) {
     const { data: categories } = useQuery<CategoryWithSubCategory[]>({
@@ -45,17 +46,19 @@ export default function AddProduct({ onClose }: { onClose: () => void }) {
 
     const submit = async (data: z.infer<typeof AddProductFormSchema>) => {
         try {
-            console.log(data);
+            let toastId = toast.loading('Uploading Images...');
             const uploadFiles = [];
             for (const file of files) {
                 const uploadedFile = await uploadAsset({ name: 'test', file });
                 if (uploadedFile) uploadFiles.push(uploadedFile);
             }
 
-            if (uploadFiles.length == 0) throw new Error('Upload assets for product');
+            if (uploadFiles.length == 0) throw new Error('Please upload assets for product');
 
             const { title, price, comparePrice, description, category, subCategory } = data;
-            const newProduct = await addProduct({
+            toast.dismiss(toastId);
+            toastId = toast.loading('Adding Product...');
+            await addProduct({
                 title,
                 description,
                 comparePrice,
@@ -64,9 +67,8 @@ export default function AddProduct({ onClose }: { onClose: () => void }) {
                 subCategoryId: subCategory,
                 files: uploadFiles,
             });
-
-            console.log(newProduct);
-
+            toast.dismiss(toastId);
+            toast.success('Product Added Successfully!');
             reset();
             setFiles([]);
             onClose();
