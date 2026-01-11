@@ -1,7 +1,11 @@
 'use server';
 import { env } from '@/config/envConfig';
 import { getUploadAuthParams } from '@imagekit/next/server';
-import axios from 'axios';
+import ImageKit from '@imagekit/nodejs';
+
+const client = new ImageKit({
+    privateKey: env.IMAGEKIT_PRIVATE_KEY,
+});
 
 export async function getUploadParams() {
     try {
@@ -12,7 +16,7 @@ export async function getUploadParams() {
             // token: "random-token", // Optional, a unique token for request
         });
 
-        return { token, expire, signature, publicKey: process.env.IMAGEKIT_PUBLIC_KEY };
+        return { token, expire, signature, publicKey: env.IMAGEKIT_PUBLIC_KEY };
     } catch (e) {
         console.log(e);
         return null;
@@ -20,19 +24,10 @@ export async function getUploadParams() {
 }
 
 export default async function deleteAsset(fileId: string) {
-    const privateKey = process.env.IMAGEKIT_PRIVATE_KEY!;
-    const encoded = Buffer.from(privateKey).toString('base64');
-
-    const options = {
-        method: 'DELETE',
-        url: `https://api.imagekit.io/v1/files/${fileId}`,
-        headers: { Accept: 'application/json', Authorization: `Basic ${encoded}` },
-    };
-
     try {
-        const { data } = await axios.request(options);
-        console.log(data);
+        await client.files.delete(fileId);
     } catch (error) {
         console.error(error);
+        throw new Error('Some error occured while deleting assets');
     }
 }

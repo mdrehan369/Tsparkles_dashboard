@@ -5,16 +5,33 @@ import { useQuery } from '@tanstack/react-query';
 import { Image } from '@imagekit/next';
 import { Button } from '../ui/button';
 import { Edit2, Trash2 } from 'lucide-react';
-import { Prisma } from '@/prisma/generated/prisma/client';
+import { Prisma, Product } from '@/prisma/generated/prisma/client';
+import ConfirmationBox from '../common/ConfirmationBox';
+import { deleteProduct } from '@/actions/products';
+import toast from 'react-hot-toast';
 
 export default function ProductsTable() {
-    const { data: products, isLoading: loading } = useQuery<
+    const {
+        data: products,
+        isLoading: loading,
+        refetch,
+    } = useQuery<
         Prisma.ProductGetPayload<{ include: { Asset: true; Category: true; SubCategory: true } }>[]
     >({
         initialData: [],
         queryKey: productKeys.GET_ALL_PRODUCTS,
         queryFn: () => fetchAllProducts(),
     });
+
+    const handleDeleteProduct = async (id: Product['id']) => {
+        //TODO: Add debounce in deleting product
+        toast.loading('Deleting product..');
+        const results = await deleteProduct(id);
+        toast.dismissAll();
+        if (results instanceof Error) toast.error(results.message);
+        else toast.success('Product deleted successfully');
+        refetch();
+    };
 
     return loading ? (
         <p className='text-muted-foreground'>Loading...</p>
@@ -111,13 +128,18 @@ export default function ProductsTable() {
                                             <Edit2 size={14} className='hover:bg-gray-100' />
                                         </Button>
 
-                                        <Button
-                                            size='icon'
-                                            variant='outline'
-                                            className='hover:text-destructive hover:bg-red-200 cursor-pointer'
-                                        >
-                                            <Trash2 size={14} />
-                                        </Button>
+                                        <ConfirmationBox
+                                            trigger={
+                                                <div className='hover:text-destructive hover:bg-red-200 cursor-pointer bg-red-100 p-2 border-0 rounded-sm'>
+                                                    <Trash2 size={16} />
+                                                </div>
+                                            }
+                                            title='Delete Product'
+                                            description='Are you sure you want to delete the product?'
+                                            onRevoke={() => handleDeleteProduct(product.id)}
+                                            revokeButtonText='Delete'
+                                            cancelButtonText='Cancel'
+                                        />
                                     </div>
                                 </td>
                             </tr>

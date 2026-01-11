@@ -16,8 +16,8 @@ model Asset {
   altText   String?
 
   reviewId Int?
-  Review    Review?   @relation(fields: [reviewId], references: [id])
-  Product   Product   @relation(fields: [productId], references: [id])
+  Review    Review?   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  Product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Category {
