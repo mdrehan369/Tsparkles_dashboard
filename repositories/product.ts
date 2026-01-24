@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { Prisma, Product } from '@/prisma/generated/prisma/client';
+import { Asset, Prisma, Product } from '@/prisma/generated/prisma/client';
 import { AddProductParams } from '@/types/product.types';
 
 async function createProduct({
@@ -87,4 +87,57 @@ async function deleteProductById(id: Product['id']) {
     return deletedProduct;
 }
 
-export { createProduct, getProducts, getProductById, deleteProductById };
+async function updateProductRepo(id: Product['id'], updateData: AddProductParams) {
+    const { title, categoryId, price, description, comparePrice, subCategoryId, files } =
+        updateData;
+    const updatedProduct = await prisma.product.update({
+        where: {
+            id,
+        },
+        data: {
+            title,
+            description,
+            price,
+            comparePrice,
+            Category: {
+                connect: { id: categoryId },
+            },
+            SubCategory: {
+                connect: { id: subCategoryId },
+            },
+            Asset: {
+                createMany: { data: files, skipDuplicates: true },
+            },
+        },
+        include: {
+            Asset: true,
+            Category: true,
+            SubCategory: true,
+        },
+    });
+
+    return updatedProduct;
+}
+
+async function deleteAssetFromProductRepo(id: Product['id'], fileId: Asset['fileId']) {
+    return await prisma.product.update({
+        where: { id },
+        include: { Asset: true },
+        data: {
+            Asset: {
+                deleteMany: {
+                    fileId,
+                },
+            },
+        },
+    });
+}
+
+export {
+    createProduct,
+    getProducts,
+    getProductById,
+    deleteProductById,
+    updateProductRepo,
+    deleteAssetFromProductRepo,
+};

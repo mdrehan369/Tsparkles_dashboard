@@ -3,21 +3,20 @@ import { cn } from '@/lib/utils';
 import { fetchAllProducts } from '@/queries/product';
 import { useQuery } from '@tanstack/react-query';
 import { Image } from '@imagekit/next';
-import { Button } from '../ui/button';
-import { Edit2, Trash2 } from 'lucide-react';
-import { Prisma, Product } from '@/prisma/generated/prisma/client';
+import { Trash2 } from 'lucide-react';
+import { Product } from '@/prisma/generated/prisma/client';
 import ConfirmationBox from '../common/ConfirmationBox';
 import { deleteProduct } from '@/actions/products';
 import toast from 'react-hot-toast';
+import EditProduct from './EditProduct';
+import { FullProduct } from '@/types/product.types';
 
 export default function ProductsTable() {
     const {
         data: products,
         isLoading: loading,
         refetch,
-    } = useQuery<
-        Prisma.ProductGetPayload<{ include: { Asset: true; Category: true; SubCategory: true } }>[]
-    >({
+    } = useQuery<FullProduct[]>({
         initialData: [],
         queryKey: productKeys.GET_ALL_PRODUCTS,
         queryFn: () => fetchAllProducts(),
@@ -120,14 +119,7 @@ export default function ProductsTable() {
                                 {/* Actions */}
                                 <td className='py-3 px-4'>
                                     <div className='flex justify-end gap-2'>
-                                        <Button
-                                            size='icon'
-                                            variant='outline'
-                                            className='hover:text-primary hover:bg-gray-200 cursor-pointer'
-                                        >
-                                            <Edit2 size={14} className='hover:bg-gray-100' />
-                                        </Button>
-
+                                        <EditProduct refetch={refetch} product={product} />
                                         <ConfirmationBox
                                             trigger={
                                                 <div className='hover:text-destructive hover:bg-red-200 cursor-pointer bg-red-100 p-2 border-0 rounded-sm'>

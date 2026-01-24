@@ -16,3 +16,6 @@ export const GetProductsQueryStringSchema = z.object({
     limit: z.number().optional().default(15),
     search: z.string().optional().default(''),
 });
+
+export type AddProductFormType = z.infer<typeof AddProductFormSchema>;
+export type EditProductFormDataType = z.infer<typeof AddProductFormSchema>;

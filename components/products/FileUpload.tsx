@@ -79,7 +79,7 @@ export default function FileUpload({
                         <span className='text-blue-600 dark:text-blue-400'>Click to upload</span> or
                         drag and drop
                     </p>
-                    <p className='text-xs text-slate-500 mt-1'>PDF, PNG, JPG (max. 10MB)</p>
+                    <p className='text-xs text-slate-500 mt-1'>PNG, JPG (max. 10MB)</p>
                 </div>
             </div>
 
