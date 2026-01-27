@@ -7,12 +7,14 @@ import { Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import DashboardLayout from '@/components/dashboard/layout';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { categoryKeys } from '@/constants/querykeys';
 import { addCategory, deleteCategory, fetchAllCategories } from '@/queries/category';
 import SubCategoryHoverCard from '@/components/categories/HoverCard';
 import { CategoryWithSubCategory } from '@/types/category.types';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import AddSubCategory from '@/components/categories/AddSubCategory';
 
 export default function CategoriesPage() {
     const [newCategory, setNewCategory] = useState('');
@@ -33,6 +35,15 @@ export default function CategoriesPage() {
         onSuccess: () => {
             refetch();
             setNewCategory('');
+            toast.success('Category added successfully!');
+        },
+        onError: (err: unknown) => {
+            if (axios.isAxiosError(err)) {
+                toast.error(err.response?.data?.message ?? 'Some error occurred');
+            } else {
+                toast.error('Some error occurred');
+            }
+            setNewCategory('');
         },
     });
 
@@ -40,12 +51,25 @@ export default function CategoriesPage() {
         mutationFn: deleteCategory,
         mutationKey: categoryKeys.ADD_NEW_CATEGORY,
         onSuccess: () => {
+            toast.success('Deleted category successfully!');
             refetch();
+        },
+        onError: (err: unknown) => {
+            if (axios.isAxiosError(err)) {
+                toast.error(err.response?.data?.message ?? 'Some error occurred');
+            } else {
+                toast.error('Some error occurred');
+            }
+            console.log(err);
         },
     });
 
     const handleAddCategory = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (newCategory.trim() == '') {
+            toast.error('Please enter a valid name');
+            return;
+        }
         mutate(newCategory.trim());
     };
 
@@ -106,6 +130,10 @@ export default function CategoriesPage() {
                                         </p>
                                     </div>
                                     <div className='flex items-center gap-2'>
+                                        <AddSubCategory
+                                            refetch={refetch}
+                                            categoryId={category.id}
+                                        />
                                         <SubCategoryHoverCard category={category} />
                                         <div className='flex gap-2'>
                                             <Button

@@ -1,13 +1,29 @@
-import { NextResponse } from "next/server"
+import { getCategoryByIdRepo } from '@/repositories/category';
+import { createSubCategoryRepo } from '@/repositories/subcategories';
+import zodValidator from '@/utils/zodValidator';
+import { createSubCategorySchema } from '@/zod/sub-category';
+import { NextRequest, NextResponse } from 'next/server';
 
-// Mock data storage
-const subCategories = [
-  { id: 1, name: "Headphones", categoryId: 1, createdAt: new Date().toISOString() },
-  { id: 2, name: "Speakers", categoryId: 1, createdAt: new Date().toISOString() },
-  { id: 3, name: "Men's Clothing", categoryId: 2, createdAt: new Date().toISOString() },
-  { id: 4, name: "Women's Clothing", categoryId: 2, createdAt: new Date().toISOString() },
-]
+export async function POST(req: NextRequest) {
+    const body = await req.json();
+    const { name, categoryId } = zodValidator(createSubCategorySchema, body);
 
-export async function GET() {
-  return NextResponse.json(subCategories)
+    const category = await getCategoryByIdRepo(categoryId);
+    if (!category)
+        return NextResponse.json({ success: false, message: 'No Category found' }, { status: 404 });
+
+    const subcatExists = category.SubCategory.find(
+        (sub) => sub.name.toLowerCase() == name.toLowerCase()
+    );
+    if (subcatExists)
+        return NextResponse.json(
+            { success: false, message: 'Sub category with this name already exists' },
+            { status: 400 }
+        );
+
+    const newSubCategory = await createSubCategoryRepo(categoryId, name);
+    return NextResponse.json(
+        { success: true, message: 'Created!', data: newSubCategory },
+        { status: 201 }
+    );
 }

@@ -1,9 +1,13 @@
 import { prisma } from '@/lib/prisma';
+import { Category } from '@/prisma/generated/prisma/client';
 
 export async function doesCategoryExists(name: string) {
     const categoryCount = await prisma.category.count({
         where: {
-            name,
+            name: {
+                equals: name,
+                mode: 'insensitive',
+            },
         },
     });
 
@@ -57,4 +61,22 @@ export async function deleteCategory(name: string) {
             name,
         },
     });
+}
+
+export async function getCategoryByIdRepo(id: Category['id']) {
+    const category = await prisma.category.findFirst({
+        where: { id },
+        include: { SubCategory: true },
+    });
+
+    return category;
+}
+
+export async function getCategoryByNameRepo(name: Category['name']) {
+    const category = await prisma.category.findFirst({
+        where: { name },
+        include: { SubCategory: true },
+    });
+
+    return category;
 }

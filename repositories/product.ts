@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
-import { Asset, Prisma, Product } from '@/prisma/generated/prisma/client';
+import { Asset, Category, Prisma, Product } from '@/prisma/generated/prisma/client';
 import { AddProductParams } from '@/types/product.types';
+import { string } from 'zod';
 
 async function createProduct({
     categoryId,
@@ -133,6 +134,14 @@ async function deleteAssetFromProductRepo(id: Product['id'], fileId: Asset['file
     });
 }
 
+async function getProductsByCategoryRepo(categoryId: Category['id']) {
+    return await prisma.product.count({
+        where: {
+            categoryId,
+        },
+    });
+}
+
 export {
     createProduct,
     getProducts,
@@ -140,4 +149,5 @@ export {
     deleteProductById,
     updateProductRepo,
     deleteAssetFromProductRepo,
+    getProductsByCategoryRepo,
 };

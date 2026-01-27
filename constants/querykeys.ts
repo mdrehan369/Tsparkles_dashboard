@@ -4,6 +4,10 @@ export const categoryKeys = {
     DELETE_CATEGORY: ['DELETE_CATEGORY'],
 };
 
+export const subCategoryKeys = {
+    ADD_NEW_SUBCATEGORY: ['ADD_NEW_SUBCATEGORY'],
+};
+
 export const productKeys = {
     GET_ALL_PRODUCTS: ['GET_ALL_PRODUCTS'],
 };
