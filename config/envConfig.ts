@@ -4,6 +4,10 @@ const envSchema = z.object({
     DATABASE_URL: z.string().url(),
     NEXT_PUBLIC_API_BASE_URL: z.string().url(),
     NEXT_PUBLIC_APP_NAME: z.string(),
+    ADMIN_EMAIL: z.string(),
+    ADMIN_PASSWORD: z.string(),
+    JWT_SECRET: z.string(),
+    JWT_EXPIRY: z.string(),
 });
 
 //TODO
@@ -29,4 +33,8 @@ export const env = {
     IMAGEKIT_PRIVATE_KEY: process.env.IMAGEKIT_PRIVATE_KEY,
     IMAGEKIT_PUBLIC_KEY: process.env.IMAGEKIT_PUBLIC_KEY,
     IMAGEKIT_ID: process.env.IMAGEKIT_ID,
+    ADMIN_EMAIL: process.env.ADMIN_EMAIL,
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+    JWT_SECRET: process.env.JWT_SECRET,
+    JWT_EXPIRY: process.env.JWT_EXPIRY,
 };
