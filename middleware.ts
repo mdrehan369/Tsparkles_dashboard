@@ -8,8 +8,9 @@ export function middleware(request: NextRequest) {
 
     const isTokenVerified = verifyJwt(token);
     if (!isTokenVerified) {
-        request.cookies.delete('accessToken');
-        return NextResponse.redirect(new URL('/auth/signin', request.url));
+        const response = NextResponse.redirect(new URL('/auth/signin', request.url));
+        response.cookies.delete('accessToken');
+        return response;
     }
 
     if (token && request.nextUrl.pathname == '/auth/signin')

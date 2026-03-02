@@ -142,6 +142,15 @@ async function getProductsByCategoryRepo(categoryId: Category['id']) {
     });
 }
 
+async function updateProductPublicationStatusRepo(productId: Product['id'], status: boolean) {
+    return await prisma.product.update({
+        where: { id: productId },
+        data: {
+            isPublished: status,
+        },
+    });
+}
+
 export {
     createProduct,
     getProducts,
@@ -150,4 +159,5 @@ export {
     updateProductRepo,
     deleteAssetFromProductRepo,
     getProductsByCategoryRepo,
+    updateProductPublicationStatusRepo,
 };

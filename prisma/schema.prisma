@@ -1,30 +1,56 @@
 generator client {
   provider = "prisma-client"
-  output   = "./generated/prisma"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
+model Account {
+  id          Int     @id @default(autoincrement())
+  isVerified  Boolean @default(false)
+  email       String  @unique
+  phoneNumber String? @unique
+  cart        Cart?
+}
+
 model Asset {
   id        Int       @id @default(autoincrement())
   productId Int
-  fileId   String     @unique
   url       String
   type      AssetType
   altText   String?
-
-  reviewId Int?
-  Review    Review?   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  fileId    String    @unique
+  reviewId  Int?
   Product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  Review    Review?   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+}
+
+model Cart {
+  id        Int        @id @default(autoincrement())
+  accountId Int        @unique
+
+  account Account @relation(fields: [accountId], references: [id])
+  CartItem  CartItem[]
+}
+
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  cartId    Int
+  productId Int
+  createdAt DateTime @default(now())
+  num       Int?     @default(1)
+  size      String?
+  Cart      Cart     @relation(fields: [cartId], references: [id])
+  Product   Product  @relation(fields: [productId], references: [id])
 }
 
 model Category {
   id          Int           @id @default(autoincrement())
   name        String        @unique
   createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  updatedAt   DateTime
   Product     Product[]
   SubCategory SubCategory[]
 }
@@ -39,22 +65,26 @@ model Product {
   categoryId    Int
   subCategoryId Int
   createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  updatedAt     DateTime
+  isPublished   Boolean     @default(true)
+  inventory     Int         @default(10)
   Asset         Asset[]
+  CartItem      CartItem[]
   Category      Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   SubCategory   SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
   Review        Review[]
 }
 
 model Review {
-  id        Int      @id @default(autoincrement())
-  productId Int
-  rating    Int
-  comment   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Assets     Asset[]
-  Product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  id         Int      @id @default(autoincrement())
+  productId  Int
+  rating     Int
+  comment    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  authorName String
+  Asset      Asset[]
+  Product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model SubCategory {
@@ -62,9 +92,17 @@ model SubCategory {
   categoryId Int
   name       String    @unique
   createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  updatedAt  DateTime
   Product    Product[]
   Category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model Verification {
+  id        Int      @id @default(autoincrement())
+  email     String
+  createdAt DateTime @default(now())
+  verified  Boolean  @default(false)
+  otp       String
 }
 
 enum AssetType {

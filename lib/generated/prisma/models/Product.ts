@@ -32,6 +32,7 @@ export type ProductAvgAggregateOutputType = {
   comparePrice: number | null
   categoryId: number | null
   subCategoryId: number | null
+  inventory: number | null
 }
 
 export type ProductSumAggregateOutputType = {
@@ -40,6 +41,7 @@ export type ProductSumAggregateOutputType = {
   comparePrice: number | null
   categoryId: number | null
   subCategoryId: number | null
+  inventory: number | null
 }
 
 export type ProductMinAggregateOutputType = {
@@ -51,9 +53,10 @@ export type ProductMinAggregateOutputType = {
   comparePrice: number | null
   categoryId: number | null
   subCategoryId: number | null
-  isPublished: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  isPublished: boolean | null
+  inventory: number | null
 }
 
 export type ProductMaxAggregateOutputType = {
@@ -65,9 +68,10 @@ export type ProductMaxAggregateOutputType = {
   comparePrice: number | null
   categoryId: number | null
   subCategoryId: number | null
-  isPublished: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  isPublished: boolean | null
+  inventory: number | null
 }
 
 export type ProductCountAggregateOutputType = {
@@ -79,9 +83,10 @@ export type ProductCountAggregateOutputType = {
   comparePrice: number
   categoryId: number
   subCategoryId: number
-  isPublished: number
   createdAt: number
   updatedAt: number
+  isPublished: number
+  inventory: number
   _all: number
 }
 
@@ -92,6 +97,7 @@ export type ProductAvgAggregateInputType = {
   comparePrice?: true
   categoryId?: true
   subCategoryId?: true
+  inventory?: true
 }
 
 export type ProductSumAggregateInputType = {
@@ -100,6 +106,7 @@ export type ProductSumAggregateInputType = {
   comparePrice?: true
   categoryId?: true
   subCategoryId?: true
+  inventory?: true
 }
 
 export type ProductMinAggregateInputType = {
@@ -111,9 +118,10 @@ export type ProductMinAggregateInputType = {
   comparePrice?: true
   categoryId?: true
   subCategoryId?: true
-  isPublished?: true
   createdAt?: true
   updatedAt?: true
+  isPublished?: true
+  inventory?: true
 }
 
 export type ProductMaxAggregateInputType = {
@@ -125,9 +133,10 @@ export type ProductMaxAggregateInputType = {
   comparePrice?: true
   categoryId?: true
   subCategoryId?: true
-  isPublished?: true
   createdAt?: true
   updatedAt?: true
+  isPublished?: true
+  inventory?: true
 }
 
 export type ProductCountAggregateInputType = {
@@ -139,9 +148,10 @@ export type ProductCountAggregateInputType = {
   comparePrice?: true
   categoryId?: true
   subCategoryId?: true
-  isPublished?: true
   createdAt?: true
   updatedAt?: true
+  isPublished?: true
+  inventory?: true
   _all?: true
 }
 
@@ -240,9 +250,10 @@ export type ProductGroupByOutputType = {
   comparePrice: number | null
   categoryId: number
   subCategoryId: number
-  isPublished: boolean
   createdAt: Date
   updatedAt: Date
+  isPublished: boolean
+  inventory: number
   _count: ProductCountAggregateOutputType | null
   _avg: ProductAvgAggregateOutputType | null
   _sum: ProductSumAggregateOutputType | null
@@ -277,10 +288,12 @@ export type ProductWhereInput = {
   comparePrice?: Prisma.FloatNullableFilter<"Product"> | number | null
   categoryId?: Prisma.IntFilter<"Product"> | number
   subCategoryId?: Prisma.IntFilter<"Product"> | number
-  isPublished?: Prisma.BoolFilter<"Product"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
+  isPublished?: Prisma.BoolFilter<"Product"> | boolean
+  inventory?: Prisma.IntFilter<"Product"> | number
   Asset?: Prisma.AssetListRelationFilter
+  CartItem?: Prisma.CartItemListRelationFilter
   Category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
   SubCategory?: Prisma.XOR<Prisma.SubCategoryScalarRelationFilter, Prisma.SubCategoryWhereInput>
   Review?: Prisma.ReviewListRelationFilter
@@ -295,10 +308,12 @@ export type ProductOrderByWithRelationInput = {
   comparePrice?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   subCategoryId?: Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
+  inventory?: Prisma.SortOrder
   Asset?: Prisma.AssetOrderByRelationAggregateInput
+  CartItem?: Prisma.CartItemOrderByRelationAggregateInput
   Category?: Prisma.CategoryOrderByWithRelationInput
   SubCategory?: Prisma.SubCategoryOrderByWithRelationInput
   Review?: Prisma.ReviewOrderByRelationAggregateInput
@@ -316,10 +331,12 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   comparePrice?: Prisma.FloatNullableFilter<"Product"> | number | null
   categoryId?: Prisma.IntFilter<"Product"> | number
   subCategoryId?: Prisma.IntFilter<"Product"> | number
-  isPublished?: Prisma.BoolFilter<"Product"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
+  isPublished?: Prisma.BoolFilter<"Product"> | boolean
+  inventory?: Prisma.IntFilter<"Product"> | number
   Asset?: Prisma.AssetListRelationFilter
+  CartItem?: Prisma.CartItemListRelationFilter
   Category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
   SubCategory?: Prisma.XOR<Prisma.SubCategoryScalarRelationFilter, Prisma.SubCategoryWhereInput>
   Review?: Prisma.ReviewListRelationFilter
@@ -334,9 +351,10 @@ export type ProductOrderByWithAggregationInput = {
   comparePrice?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   subCategoryId?: Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
+  inventory?: Prisma.SortOrder
   _count?: Prisma.ProductCountOrderByAggregateInput
   _avg?: Prisma.ProductAvgOrderByAggregateInput
   _max?: Prisma.ProductMaxOrderByAggregateInput
@@ -356,9 +374,10 @@ export type ProductScalarWhereWithAggregatesInput = {
   comparePrice?: Prisma.FloatNullableWithAggregatesFilter<"Product"> | number | null
   categoryId?: Prisma.IntWithAggregatesFilter<"Product"> | number
   subCategoryId?: Prisma.IntWithAggregatesFilter<"Product"> | number
-  isPublished?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
+  isPublished?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
+  inventory?: Prisma.IntWithAggregatesFilter<"Product"> | number
 }
 
 export type ProductCreateInput = {
@@ -367,10 +386,12 @@ export type ProductCreateInput = {
   description?: string | null
   price: number
   comparePrice?: number | null
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
   Asset?: Prisma.AssetCreateNestedManyWithoutProductInput
+  CartItem?: Prisma.CartItemCreateNestedManyWithoutProductInput
   Category: Prisma.CategoryCreateNestedOneWithoutProductInput
   SubCategory: Prisma.SubCategoryCreateNestedOneWithoutProductInput
   Review?: Prisma.ReviewCreateNestedManyWithoutProductInput
@@ -385,10 +406,12 @@ export type ProductUncheckedCreateInput = {
   comparePrice?: number | null
   categoryId: number
   subCategoryId: number
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
   Asset?: Prisma.AssetUncheckedCreateNestedManyWithoutProductInput
+  CartItem?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
   Review?: Prisma.ReviewUncheckedCreateNestedManyWithoutProductInput
 }
 
@@ -398,10 +421,12 @@ export type ProductUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
   Asset?: Prisma.AssetUpdateManyWithoutProductNestedInput
+  CartItem?: Prisma.CartItemUpdateManyWithoutProductNestedInput
   Category?: Prisma.CategoryUpdateOneRequiredWithoutProductNestedInput
   SubCategory?: Prisma.SubCategoryUpdateOneRequiredWithoutProductNestedInput
   Review?: Prisma.ReviewUpdateManyWithoutProductNestedInput
@@ -416,10 +441,12 @@ export type ProductUncheckedUpdateInput = {
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
   subCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
   Asset?: Prisma.AssetUncheckedUpdateManyWithoutProductNestedInput
+  CartItem?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
   Review?: Prisma.ReviewUncheckedUpdateManyWithoutProductNestedInput
 }
 
@@ -432,9 +459,10 @@ export type ProductCreateManyInput = {
   comparePrice?: number | null
   categoryId: number
   subCategoryId: number
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
 }
 
 export type ProductUpdateManyMutationInput = {
@@ -443,9 +471,10 @@ export type ProductUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ProductUncheckedUpdateManyInput = {
@@ -457,9 +486,10 @@ export type ProductUncheckedUpdateManyInput = {
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
   subCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ProductScalarRelationFilter = {
@@ -486,9 +516,10 @@ export type ProductCountOrderByAggregateInput = {
   comparePrice?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   subCategoryId?: Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
+  inventory?: Prisma.SortOrder
 }
 
 export type ProductAvgOrderByAggregateInput = {
@@ -497,6 +528,7 @@ export type ProductAvgOrderByAggregateInput = {
   comparePrice?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   subCategoryId?: Prisma.SortOrder
+  inventory?: Prisma.SortOrder
 }
 
 export type ProductMaxOrderByAggregateInput = {
@@ -508,9 +540,10 @@ export type ProductMaxOrderByAggregateInput = {
   comparePrice?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   subCategoryId?: Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
+  inventory?: Prisma.SortOrder
 }
 
 export type ProductMinOrderByAggregateInput = {
@@ -522,9 +555,10 @@ export type ProductMinOrderByAggregateInput = {
   comparePrice?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   subCategoryId?: Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
+  inventory?: Prisma.SortOrder
 }
 
 export type ProductSumOrderByAggregateInput = {
@@ -533,6 +567,7 @@ export type ProductSumOrderByAggregateInput = {
   comparePrice?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   subCategoryId?: Prisma.SortOrder
+  inventory?: Prisma.SortOrder
 }
 
 export type ProductCreateNestedOneWithoutAssetInput = {
@@ -547,6 +582,20 @@ export type ProductUpdateOneRequiredWithoutAssetNestedInput = {
   upsert?: Prisma.ProductUpsertWithoutAssetInput
   connect?: Prisma.ProductWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutAssetInput, Prisma.ProductUpdateWithoutAssetInput>, Prisma.ProductUncheckedUpdateWithoutAssetInput>
+}
+
+export type ProductCreateNestedOneWithoutCartItemInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutCartItemInput, Prisma.ProductUncheckedCreateWithoutCartItemInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutCartItemInput
+  connect?: Prisma.ProductWhereUniqueInput
+}
+
+export type ProductUpdateOneRequiredWithoutCartItemNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutCartItemInput, Prisma.ProductUncheckedCreateWithoutCartItemInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutCartItemInput
+  upsert?: Prisma.ProductUpsertWithoutCartItemInput
+  connect?: Prisma.ProductWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutCartItemInput, Prisma.ProductUpdateWithoutCartItemInput>, Prisma.ProductUncheckedUpdateWithoutCartItemInput>
 }
 
 export type ProductCreateNestedManyWithoutCategoryInput = {
@@ -605,10 +654,6 @@ export type NullableFloatFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
 }
 
 export type ProductCreateNestedOneWithoutReviewInput = {
@@ -673,9 +718,11 @@ export type ProductCreateWithoutAssetInput = {
   description?: string | null
   price: number
   comparePrice?: number | null
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
+  CartItem?: Prisma.CartItemCreateNestedManyWithoutProductInput
   Category: Prisma.CategoryCreateNestedOneWithoutProductInput
   SubCategory: Prisma.SubCategoryCreateNestedOneWithoutProductInput
   Review?: Prisma.ReviewCreateNestedManyWithoutProductInput
@@ -690,9 +737,11 @@ export type ProductUncheckedCreateWithoutAssetInput = {
   comparePrice?: number | null
   categoryId: number
   subCategoryId: number
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
+  CartItem?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
   Review?: Prisma.ReviewUncheckedCreateNestedManyWithoutProductInput
 }
 
@@ -718,9 +767,11 @@ export type ProductUpdateWithoutAssetInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
+  CartItem?: Prisma.CartItemUpdateManyWithoutProductNestedInput
   Category?: Prisma.CategoryUpdateOneRequiredWithoutProductNestedInput
   SubCategory?: Prisma.SubCategoryUpdateOneRequiredWithoutProductNestedInput
   Review?: Prisma.ReviewUpdateManyWithoutProductNestedInput
@@ -735,9 +786,93 @@ export type ProductUncheckedUpdateWithoutAssetInput = {
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
   subCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
+  CartItem?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
+  Review?: Prisma.ReviewUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type ProductCreateWithoutCartItemInput = {
+  slug: string
+  title: string
+  description?: string | null
+  price: number
+  comparePrice?: number | null
+  createdAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
+  Asset?: Prisma.AssetCreateNestedManyWithoutProductInput
+  Category: Prisma.CategoryCreateNestedOneWithoutProductInput
+  SubCategory: Prisma.SubCategoryCreateNestedOneWithoutProductInput
+  Review?: Prisma.ReviewCreateNestedManyWithoutProductInput
+}
+
+export type ProductUncheckedCreateWithoutCartItemInput = {
+  id?: number
+  slug: string
+  title: string
+  description?: string | null
+  price: number
+  comparePrice?: number | null
+  categoryId: number
+  subCategoryId: number
+  createdAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
+  Asset?: Prisma.AssetUncheckedCreateNestedManyWithoutProductInput
+  Review?: Prisma.ReviewUncheckedCreateNestedManyWithoutProductInput
+}
+
+export type ProductCreateOrConnectWithoutCartItemInput = {
+  where: Prisma.ProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductCreateWithoutCartItemInput, Prisma.ProductUncheckedCreateWithoutCartItemInput>
+}
+
+export type ProductUpsertWithoutCartItemInput = {
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutCartItemInput, Prisma.ProductUncheckedUpdateWithoutCartItemInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutCartItemInput, Prisma.ProductUncheckedCreateWithoutCartItemInput>
+  where?: Prisma.ProductWhereInput
+}
+
+export type ProductUpdateToOneWithWhereWithoutCartItemInput = {
+  where?: Prisma.ProductWhereInput
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutCartItemInput, Prisma.ProductUncheckedUpdateWithoutCartItemInput>
+}
+
+export type ProductUpdateWithoutCartItemInput = {
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
+  Asset?: Prisma.AssetUpdateManyWithoutProductNestedInput
+  Category?: Prisma.CategoryUpdateOneRequiredWithoutProductNestedInput
+  SubCategory?: Prisma.SubCategoryUpdateOneRequiredWithoutProductNestedInput
+  Review?: Prisma.ReviewUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateWithoutCartItemInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
+  subCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
+  Asset?: Prisma.AssetUncheckedUpdateManyWithoutProductNestedInput
   Review?: Prisma.ReviewUncheckedUpdateManyWithoutProductNestedInput
 }
 
@@ -747,10 +882,12 @@ export type ProductCreateWithoutCategoryInput = {
   description?: string | null
   price: number
   comparePrice?: number | null
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
   Asset?: Prisma.AssetCreateNestedManyWithoutProductInput
+  CartItem?: Prisma.CartItemCreateNestedManyWithoutProductInput
   SubCategory: Prisma.SubCategoryCreateNestedOneWithoutProductInput
   Review?: Prisma.ReviewCreateNestedManyWithoutProductInput
 }
@@ -763,10 +900,12 @@ export type ProductUncheckedCreateWithoutCategoryInput = {
   price: number
   comparePrice?: number | null
   subCategoryId: number
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
   Asset?: Prisma.AssetUncheckedCreateNestedManyWithoutProductInput
+  CartItem?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
   Review?: Prisma.ReviewUncheckedCreateNestedManyWithoutProductInput
 }
 
@@ -808,9 +947,10 @@ export type ProductScalarWhereInput = {
   comparePrice?: Prisma.FloatNullableFilter<"Product"> | number | null
   categoryId?: Prisma.IntFilter<"Product"> | number
   subCategoryId?: Prisma.IntFilter<"Product"> | number
-  isPublished?: Prisma.BoolFilter<"Product"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
+  isPublished?: Prisma.BoolFilter<"Product"> | boolean
+  inventory?: Prisma.IntFilter<"Product"> | number
 }
 
 export type ProductCreateWithoutReviewInput = {
@@ -819,10 +959,12 @@ export type ProductCreateWithoutReviewInput = {
   description?: string | null
   price: number
   comparePrice?: number | null
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
   Asset?: Prisma.AssetCreateNestedManyWithoutProductInput
+  CartItem?: Prisma.CartItemCreateNestedManyWithoutProductInput
   Category: Prisma.CategoryCreateNestedOneWithoutProductInput
   SubCategory: Prisma.SubCategoryCreateNestedOneWithoutProductInput
 }
@@ -836,10 +978,12 @@ export type ProductUncheckedCreateWithoutReviewInput = {
   comparePrice?: number | null
   categoryId: number
   subCategoryId: number
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
   Asset?: Prisma.AssetUncheckedCreateNestedManyWithoutProductInput
+  CartItem?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductCreateOrConnectWithoutReviewInput = {
@@ -864,10 +1008,12 @@ export type ProductUpdateWithoutReviewInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
   Asset?: Prisma.AssetUpdateManyWithoutProductNestedInput
+  CartItem?: Prisma.CartItemUpdateManyWithoutProductNestedInput
   Category?: Prisma.CategoryUpdateOneRequiredWithoutProductNestedInput
   SubCategory?: Prisma.SubCategoryUpdateOneRequiredWithoutProductNestedInput
 }
@@ -881,10 +1027,12 @@ export type ProductUncheckedUpdateWithoutReviewInput = {
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
   subCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
   Asset?: Prisma.AssetUncheckedUpdateManyWithoutProductNestedInput
+  CartItem?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductCreateWithoutSubCategoryInput = {
@@ -893,10 +1041,12 @@ export type ProductCreateWithoutSubCategoryInput = {
   description?: string | null
   price: number
   comparePrice?: number | null
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
   Asset?: Prisma.AssetCreateNestedManyWithoutProductInput
+  CartItem?: Prisma.CartItemCreateNestedManyWithoutProductInput
   Category: Prisma.CategoryCreateNestedOneWithoutProductInput
   Review?: Prisma.ReviewCreateNestedManyWithoutProductInput
 }
@@ -909,10 +1059,12 @@ export type ProductUncheckedCreateWithoutSubCategoryInput = {
   price: number
   comparePrice?: number | null
   categoryId: number
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
   Asset?: Prisma.AssetUncheckedCreateNestedManyWithoutProductInput
+  CartItem?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
   Review?: Prisma.ReviewUncheckedCreateNestedManyWithoutProductInput
 }
 
@@ -950,9 +1102,10 @@ export type ProductCreateManyCategoryInput = {
   price: number
   comparePrice?: number | null
   subCategoryId: number
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
 }
 
 export type ProductUpdateWithoutCategoryInput = {
@@ -961,10 +1114,12 @@ export type ProductUpdateWithoutCategoryInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
   Asset?: Prisma.AssetUpdateManyWithoutProductNestedInput
+  CartItem?: Prisma.CartItemUpdateManyWithoutProductNestedInput
   SubCategory?: Prisma.SubCategoryUpdateOneRequiredWithoutProductNestedInput
   Review?: Prisma.ReviewUpdateManyWithoutProductNestedInput
 }
@@ -977,10 +1132,12 @@ export type ProductUncheckedUpdateWithoutCategoryInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   subCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
   Asset?: Prisma.AssetUncheckedUpdateManyWithoutProductNestedInput
+  CartItem?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
   Review?: Prisma.ReviewUncheckedUpdateManyWithoutProductNestedInput
 }
 
@@ -992,9 +1149,10 @@ export type ProductUncheckedUpdateManyWithoutCategoryInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   subCategoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ProductCreateManySubCategoryInput = {
@@ -1005,9 +1163,10 @@ export type ProductCreateManySubCategoryInput = {
   price: number
   comparePrice?: number | null
   categoryId: number
-  isPublished?: boolean
   createdAt?: Date | string
-  updatedAt?: Date | string
+  updatedAt: Date | string
+  isPublished?: boolean
+  inventory?: number
 }
 
 export type ProductUpdateWithoutSubCategoryInput = {
@@ -1016,10 +1175,12 @@ export type ProductUpdateWithoutSubCategoryInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
   Asset?: Prisma.AssetUpdateManyWithoutProductNestedInput
+  CartItem?: Prisma.CartItemUpdateManyWithoutProductNestedInput
   Category?: Prisma.CategoryUpdateOneRequiredWithoutProductNestedInput
   Review?: Prisma.ReviewUpdateManyWithoutProductNestedInput
 }
@@ -1032,10 +1193,12 @@ export type ProductUncheckedUpdateWithoutSubCategoryInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
   Asset?: Prisma.AssetUncheckedUpdateManyWithoutProductNestedInput
+  CartItem?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
   Review?: Prisma.ReviewUncheckedUpdateManyWithoutProductNestedInput
 }
 
@@ -1047,9 +1210,10 @@ export type ProductUncheckedUpdateManyWithoutSubCategoryInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   comparePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inventory?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -1059,11 +1223,13 @@ export type ProductUncheckedUpdateManyWithoutSubCategoryInput = {
 
 export type ProductCountOutputType = {
   Asset: number
+  CartItem: number
   Review: number
 }
 
 export type ProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Asset?: boolean | ProductCountOutputTypeCountAssetArgs
+  CartItem?: boolean | ProductCountOutputTypeCountCartItemArgs
   Review?: boolean | ProductCountOutputTypeCountReviewArgs
 }
 
@@ -1087,6 +1253,13 @@ export type ProductCountOutputTypeCountAssetArgs<ExtArgs extends runtime.Types.E
 /**
  * ProductCountOutputType without action
  */
+export type ProductCountOutputTypeCountCartItemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CartItemWhereInput
+}
+
+/**
+ * ProductCountOutputType without action
+ */
 export type ProductCountOutputTypeCountReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ReviewWhereInput
 }
@@ -1101,10 +1274,12 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   comparePrice?: boolean
   categoryId?: boolean
   subCategoryId?: boolean
-  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isPublished?: boolean
+  inventory?: boolean
   Asset?: boolean | Prisma.Product$AssetArgs<ExtArgs>
+  CartItem?: boolean | Prisma.Product$CartItemArgs<ExtArgs>
   Category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   SubCategory?: boolean | Prisma.SubCategoryDefaultArgs<ExtArgs>
   Review?: boolean | Prisma.Product$ReviewArgs<ExtArgs>
@@ -1120,9 +1295,10 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   comparePrice?: boolean
   categoryId?: boolean
   subCategoryId?: boolean
-  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isPublished?: boolean
+  inventory?: boolean
   Category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   SubCategory?: boolean | Prisma.SubCategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
@@ -1136,9 +1312,10 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   comparePrice?: boolean
   categoryId?: boolean
   subCategoryId?: boolean
-  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isPublished?: boolean
+  inventory?: boolean
   Category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   SubCategory?: boolean | Prisma.SubCategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
@@ -1152,14 +1329,16 @@ export type ProductSelectScalar = {
   comparePrice?: boolean
   categoryId?: boolean
   subCategoryId?: boolean
-  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isPublished?: boolean
+  inventory?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "description" | "price" | "comparePrice" | "categoryId" | "subCategoryId" | "isPublished" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "description" | "price" | "comparePrice" | "categoryId" | "subCategoryId" | "createdAt" | "updatedAt" | "isPublished" | "inventory", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Asset?: boolean | Prisma.Product$AssetArgs<ExtArgs>
+  CartItem?: boolean | Prisma.Product$CartItemArgs<ExtArgs>
   Category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   SubCategory?: boolean | Prisma.SubCategoryDefaultArgs<ExtArgs>
   Review?: boolean | Prisma.Product$ReviewArgs<ExtArgs>
@@ -1178,6 +1357,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Product"
   objects: {
     Asset: Prisma.$AssetPayload<ExtArgs>[]
+    CartItem: Prisma.$CartItemPayload<ExtArgs>[]
     Category: Prisma.$CategoryPayload<ExtArgs>
     SubCategory: Prisma.$SubCategoryPayload<ExtArgs>
     Review: Prisma.$ReviewPayload<ExtArgs>[]
@@ -1191,9 +1371,10 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     comparePrice: number | null
     categoryId: number
     subCategoryId: number
-    isPublished: boolean
     createdAt: Date
     updatedAt: Date
+    isPublished: boolean
+    inventory: number
   }, ExtArgs["result"]["product"]>
   composites: {}
 }
@@ -1589,6 +1770,7 @@ readonly fields: ProductFieldRefs;
 export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Asset<T extends Prisma.Product$AssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$AssetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  CartItem<T extends Prisma.Product$CartItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$CartItemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Category<T extends Prisma.CategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   SubCategory<T extends Prisma.SubCategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubCategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__SubCategoryClient<runtime.Types.Result.GetResult<Prisma.$SubCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Review<T extends Prisma.Product$ReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$ReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1629,9 +1811,10 @@ export interface ProductFieldRefs {
   readonly comparePrice: Prisma.FieldRef<"Product", 'Float'>
   readonly categoryId: Prisma.FieldRef<"Product", 'Int'>
   readonly subCategoryId: Prisma.FieldRef<"Product", 'Int'>
-  readonly isPublished: Prisma.FieldRef<"Product", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Product", 'DateTime'>
+  readonly isPublished: Prisma.FieldRef<"Product", 'Boolean'>
+  readonly inventory: Prisma.FieldRef<"Product", 'Int'>
 }
     
 
@@ -2049,6 +2232,30 @@ export type Product$AssetArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AssetScalarFieldEnum | Prisma.AssetScalarFieldEnum[]
+}
+
+/**
+ * Product.CartItem
+ */
+export type Product$CartItemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CartItem
+   */
+  select?: Prisma.CartItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CartItem
+   */
+  omit?: Prisma.CartItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CartItemInclude<ExtArgs> | null
+  where?: Prisma.CartItemWhereInput
+  orderBy?: Prisma.CartItemOrderByWithRelationInput | Prisma.CartItemOrderByWithRelationInput[]
+  cursor?: Prisma.CartItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CartItemScalarFieldEnum | Prisma.CartItemScalarFieldEnum[]
 }
 
 /**

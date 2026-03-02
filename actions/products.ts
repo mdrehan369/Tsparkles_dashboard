@@ -5,6 +5,7 @@ import {
     deleteAssetFromProductRepo,
     deleteProductById,
     getProductById,
+    updateProductPublicationStatusRepo,
     updateProductRepo,
 } from '@/repositories/product';
 import { AddProductParams } from '@/types/product.types';
@@ -60,5 +61,16 @@ export const deleteProductAsset = async (productId: Product['id'], fileId: Asset
     } catch (e: any) {
         console.log(e);
         throw new Error(e);
+    }
+};
+
+export const markProductPublished = async (productId: Product['id'], status: boolean) => {
+    try {
+        const product = await getProductById(productId);
+        if (!product) throw new Error('Product not found');
+        await updateProductPublicationStatusRepo(productId, status);
+    } catch (error: any) {
+        console.log(error);
+        throw new Error(error);
     }
 };

@@ -6,10 +6,11 @@ import { Image } from '@imagekit/next';
 import { Trash2 } from 'lucide-react';
 import { Product } from '@/prisma/generated/prisma/client';
 import ConfirmationBox from '../common/ConfirmationBox';
-import { deleteProduct } from '@/actions/products';
+import { deleteProduct, markProductPublished } from '@/actions/products';
 import toast from 'react-hot-toast';
 import EditProduct from './EditProduct';
 import { FullProduct } from '@/types/product.types';
+import { Switch } from '../ui/switch';
 
 export default function ProductsTable() {
     const {
@@ -32,6 +33,11 @@ export default function ProductsTable() {
         refetch();
     };
 
+    const onPublishStatusChange = async (productId: Product['id'], val: boolean) => {
+        await markProductPublished(productId, val);
+        refetch();
+    };
+
     return loading ? (
         <p className='text-muted-foreground'>Loading...</p>
     ) : products.length === 0 ? (
@@ -46,6 +52,9 @@ export default function ProductsTable() {
                         <th className='text-left py-3 px-4 font-light text-foreground'>Category</th>
                         <th className='text-left py-3 px-4 font-light text-foreground'>
                             Sub-Category
+                        </th>
+                        <th className='text-left py-3 px-4 font-light text-foreground'>
+                            Published
                         </th>
                         <th className='text-right py-3 px-4 font-light text-foreground'>Actions</th>
                     </tr>
@@ -115,7 +124,14 @@ export default function ProductsTable() {
                                         {product.SubCategory.name}
                                     </span>
                                 </td>
-
+                                <td className='py-3 px-4'>
+                                    <Switch
+                                        checked={product.isPublished}
+                                        onCheckedChange={(val) =>
+                                            onPublishStatusChange(product.id, val)
+                                        }
+                                    />
+                                </td>
                                 {/* Actions */}
                                 <td className='py-3 px-4'>
                                     <div className='flex justify-end gap-2'>
