@@ -8,11 +8,13 @@ datasource db {
 }
 
 model Account {
-  id          Int     @id @default(autoincrement())
-  isVerified  Boolean @default(false)
-  email       String  @unique
-  phoneNumber String? @unique
+  id          Int       @id @default(autoincrement())
+  isVerified  Boolean   @default(false)
+  email       String    @unique
+  phoneNumber String?   @unique
+  addresses   Address[]
   cart        Cart?
+  orders      Order[]
 }
 
 model Asset {
@@ -30,8 +32,7 @@ model Asset {
 model Cart {
   id        Int        @id @default(autoincrement())
   accountId Int        @unique
-
-  account Account @relation(fields: [accountId], references: [id])
+  account   Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
   CartItem  CartItem[]
 }
 
@@ -40,7 +41,7 @@ model CartItem {
   cartId    Int
   productId Int
   createdAt DateTime @default(now())
-  num       Int?     @default(1)
+  quantity       Int     @default(1)
   size      String?
   Cart      Cart     @relation(fields: [cartId], references: [id])
   Product   Product  @relation(fields: [productId], references: [id])
@@ -70,6 +71,7 @@ model Product {
   inventory     Int         @default(10)
   Asset         Asset[]
   CartItem      CartItem[]
+  OrderItems    OrderItem[]
   Category      Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   SubCategory   SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
   Review        Review[]
@@ -105,7 +107,80 @@ model Verification {
   otp       String
 }
 
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  title     String
+  price     Float
+  quantity  Int
+  size      String?
+  createdAt DateTime @default(now())
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Order {
+  id              Int           @id @default(autoincrement())
+  orderNumber     String        @unique
+  accountId       Int
+  email           String
+  phoneNumber     String?
+  slug            String
+  totalAmount     Float
+  currency        String        @default("INR")
+  status          OrderStatus   @default(PENDING)
+  paymentStatus   PaymentStatus @default(PENDING)
+  shippingAddress Json
+  billingAddress  Json?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  account         Account       @relation(fields: [accountId], references: [id])
+  items           OrderItem[]
+}
+
+model Address {
+  id          Int         @id @default(autoincrement())
+  accountId   Int
+  fullName    String
+  phoneNumber String
+  line1       String
+  line2       String?
+  city        String
+  state       String
+  postalCode  String
+  country     String      @default("India")
+  type        AddressType @default(SHIPPING)
+  isDefault   Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  account     Account     @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+}
+
 enum AssetType {
   IMAGE
   VIDEO
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  RETURNED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum AddressType {
+  SHIPPING
+  BILLING
 }

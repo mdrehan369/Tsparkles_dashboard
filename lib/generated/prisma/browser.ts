@@ -62,3 +62,18 @@ export type SubCategory = Prisma.SubCategoryModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model OrderItem
+ * 
+ */
+export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
+/**
+ * Model Address
+ * 
+ */
+export type Address = Prisma.AddressModel

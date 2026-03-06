@@ -59,7 +59,10 @@ export const ModelName = {
   Product: 'Product',
   Review: 'Review',
   SubCategory: 'SubCategory',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  OrderItem: 'OrderItem',
+  Order: 'Order',
+  Address: 'Address'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -114,7 +117,7 @@ export const CartItemScalarFieldEnum = {
   cartId: 'cartId',
   productId: 'productId',
   createdAt: 'createdAt',
-  num: 'num',
+  quantity: 'quantity',
   size: 'size'
 } as const
 
@@ -184,12 +187,81 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+export const OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  productId: 'productId',
+  title: 'title',
+  price: 'price',
+  quantity: 'quantity',
+  size: 'size',
+  createdAt: 'createdAt'
+} as const
+
+export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  orderNumber: 'orderNumber',
+  accountId: 'accountId',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  slug: 'slug',
+  totalAmount: 'totalAmount',
+  currency: 'currency',
+  status: 'status',
+  paymentStatus: 'paymentStatus',
+  shippingAddress: 'shippingAddress',
+  billingAddress: 'billingAddress',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const AddressScalarFieldEnum = {
+  id: 'id',
+  accountId: 'accountId',
+  fullName: 'fullName',
+  phoneNumber: 'phoneNumber',
+  line1: 'line1',
+  line2: 'line2',
+  city: 'city',
+  state: 'state',
+  postalCode: 'postalCode',
+  country: 'country',
+  type: 'type',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -206,4 +278,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
