@@ -1,5 +1,5 @@
-import { Prisma } from '@/prisma/generated/prisma/client';
-import { AssetType } from '@/prisma/generated/prisma/enums';
+import { Prisma } from '@/lib/generated/prisma/client';
+import { AssetType } from '@/lib/generated/prisma/enums';
 
 export type UploadFile = {
     type: AssetType;
@@ -9,7 +9,7 @@ export type UploadFile = {
 
 export type AddProductParams = {
     title: string;
-    description: string;
+    details: string;
     price: number;
     comparePrice: number;
     files: UploadFile[];
@@ -19,14 +19,14 @@ export type AddProductParams = {
 
 export type ProductWithAssets = Prisma.ProductGetPayload<{
     include: {
-        Asset: true;
+        assets: true;
     };
 }>;
 
 export type FullProduct = Prisma.ProductGetPayload<{
     include: {
-        Asset: true;
-        Category: true;
-        SubCategory: true;
+        assets: true;
+        category: true;
+        subCategory: true;
     };
 }>;

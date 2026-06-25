@@ -27,7 +27,6 @@ import { FullProduct } from '@/types/product.types';
 import { Image } from '@imagekit/next';
 import { Trash2 } from 'lucide-react';
 import deleteAsset from '@/actions/assetManagement';
-import { deleteAssetFromProductRepo } from '@/repositories/product';
 
 type Props = {
     onClose: () => void;
@@ -58,10 +57,10 @@ export default function AddProduct({ onClose, isEditing = false, editingProductD
                 const product: EditProductFormDataType = {
                     comparePrice: editingProductData.comparePrice || 0,
                     price: editingProductData.price,
-                    description: editingProductData.description || '',
+                    description: editingProductData.details || '',
                     title: editingProductData.title,
-                    category: editingProductData.Category.id,
-                    subCategory: editingProductData.SubCategory.id,
+                    category: editingProductData.category.id,
+                    subCategory: editingProductData.subCategory.id,
                 };
                 return product;
             }
@@ -211,7 +210,7 @@ export default function AddProduct({ onClose, isEditing = false, editingProductD
                                     <SelectContent>
                                         {categories
                                             ?.find((cat) => cat.id === Number(watch('category')))
-                                            ?.SubCategory.map((cat) => (
+                                            ?.subCategory.map((cat) => (
                                                 <SelectItem key={cat.id} value={cat.id.toString()}>
                                                     {cat.name}
                                                 </SelectItem>
@@ -223,7 +222,7 @@ export default function AddProduct({ onClose, isEditing = false, editingProductD
                     </div>
                     {isEditing && editingProductData && (
                         <div className='w-full flex items-center justify-start gap-3 overflow-x-scroll p-3'>
-                            {editingProductData.Asset.map(
+                            {editingProductData.assets.map(
                                 (asset) =>
                                     !deletedFileIds.includes(asset.fileId) && (
                                         <div className='w-28 h-28 relative z-20' key={asset.id}>

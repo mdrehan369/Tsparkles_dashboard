@@ -6,9 +6,11 @@ import { UploadCloud, X, FileText } from 'lucide-react';
 export default function FileUpload({
     files,
     setFiles,
+    multiple = true,
 }: {
     files: File[];
     setFiles: Dispatch<SetStateAction<File[]>>;
+    multiple?: boolean;
 }) {
     const [isDragging, setIsDragging] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +34,8 @@ export default function FileUpload({
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const selectedFiles = Array.from(e.target.files);
-            setFiles((prev) => [...prev, ...selectedFiles]);
+            if (multiple) setFiles((prev) => [...prev, ...selectedFiles]);
+            else setFiles([...selectedFiles]);
         }
     };
 
@@ -65,7 +68,7 @@ export default function FileUpload({
                     ref={fileInputRef}
                     onChange={handleFileSelect}
                     className='hidden'
-                    multiple
+                    multiple={multiple}
                 />
 
                 <div className='p-4 bg-slate-100 dark:bg-slate-800 rounded-full'>

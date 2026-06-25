@@ -7,20 +7,15 @@ import {
 } from '@/repositories/category';
 import { getProductsByCategoryRepo } from '@/repositories/product';
 import { deleteSubcategorysById, doesSubcategoriesExists } from '@/repositories/subcategories';
-import { CreateCategorySchema } from '@/zod/category';
+import asyncHandler from '@/utils/asyncHandler';
+import { CreateCategorySchema, UpdateCategorySchema } from '@/zod/category';
 import { type NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export const POST = asyncHandler(async (request) => {
     const body = await request.json();
 
-    const parsedBody = CreateCategorySchema.safeParse(body);
-    if (parsedBody.error || !parsedBody.success)
-        return NextResponse.json(
-            { success: false, message: 'Invalid body schema', error: parsedBody.error },
-            { status: 400 }
-        );
-
-    const { name, subcategories } = parsedBody.data;
+    const parsedBody = CreateCategorySchema.parse(body);
+    const { name, subcategories, backgroundColor, image } = parsedBody;
 
     const categoryCnt = await doesCategoryExists(name);
     if (categoryCnt)
@@ -36,12 +31,17 @@ export async function POST(request: NextRequest) {
             { status: 400 }
         );
 
-    const newCategory = await createCategory(name, subcategories || []);
+    const newCategory = await createCategory(
+        name,
+        backgroundColor,
+        subcategories || [],
+        image ?? undefined
+    );
 
     return NextResponse.json(newCategory, { status: 201 });
-}
+});
 
-export async function GET(request: NextRequest) {
+export const GET = asyncHandler(async (request: NextRequest) => {
     const page = Number(request.nextUrl.searchParams.get('page') || 1);
     const limit = Number(request.nextUrl.searchParams.get('limit') || 15);
     const search = request.nextUrl.searchParams.get('search') || '';
@@ -49,9 +49,9 @@ export async function GET(request: NextRequest) {
     const categories = await getCategories(page, limit, search);
 
     return NextResponse.json({ success: true, message: 'Fetched!', data: categories });
-}
+});
 
-export async function DELETE(request: NextRequest) {
+export const DELETE = asyncHandler(async (request: NextRequest) => {
     const { name } = await request.json();
     if (!name) return NextResponse.json({ success: false, message: 'No name given' });
 
@@ -73,7 +73,7 @@ export async function DELETE(request: NextRequest) {
         );
 
     await deleteCategory(name);
-    await deleteSubcategorysById(category.SubCategory.map((sub) => sub.id));
+    await deleteSubcategorysById(category.subCategory.map((sub) => sub.id));
 
     return NextResponse.json({ success: true, message: 'Deleted successfully!' }, { status: 200 });
-}
+});

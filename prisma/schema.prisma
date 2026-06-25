@@ -8,116 +8,146 @@ datasource db {
 }
 
 model Account {
-  id          Int       @id @default(autoincrement())
-  isVerified  Boolean   @default(false)
-  email       String    @unique
-  phoneNumber String?   @unique
+  id          Int        @id @default(autoincrement())
+  isVerified  Boolean    @default(false)
+  email       String     @unique
+  phoneNumber String?    @unique
   addresses   Address[]
   cart        Cart?
   orders      Order[]
+  wishlists   Wishlist[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
 
 model Asset {
-  id        Int       @id @default(autoincrement())
-  productId Int
-  url       String
-  type      AssetType
-  altText   String?
-  fileId    String    @unique
-  reviewId  Int?
-  Product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
-  Review    Review?   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  id      Int       @id @default(autoincrement())
+  url     String
+  fileId  String    @unique
+  type    AssetType
+  altText String?
+
+  productId  Int?
+  reviewId   Int?
+  categoryId Int? @unique
+
+  product  Product?  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  review   Review?   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Cart {
   id        Int        @id @default(autoincrement())
   accountId Int        @unique
   account   Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  CartItem  CartItem[]
+  cartItem  CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CartItem {
-  id        Int      @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   cartId    Int
   productId Int
-  createdAt DateTime @default(now())
-  quantity       Int     @default(1)
   size      String?
-  Cart      Cart     @relation(fields: [cartId], references: [id])
-  Product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1)
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id          Int           @id @default(autoincrement())
-  name        String        @unique
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime
-  Product     Product[]
-  SubCategory SubCategory[]
+  id              Int           @id @default(autoincrement())
+  name            String        @unique
+  image           Asset?
+  backgroundColor String
+  product         Product[]
+  subCategory     SubCategory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Product {
-  id            Int         @id @default(autoincrement())
-  slug          String      @unique
+  id            Int     @id @default(autoincrement())
+  slug          String  @unique
   title         String
-  description   String?
+  details       String?
+  materials     String?
+  shipping      String?
   price         Float
   comparePrice  Float?
   categoryId    Int
   subCategoryId Int
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime
-  isPublished   Boolean     @default(true)
-  inventory     Int         @default(10)
-  Asset         Asset[]
-  CartItem      CartItem[]
-  OrderItems    OrderItem[]
-  Category      Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  SubCategory   SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
-  Review        Review[]
+  isPublished   Boolean @default(true)
+  inventory     Int     @default(10)
+
+  assets      Asset[]
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  subCategory SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+  reviews     Review[]
+  wishlists   Wishlist[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Review {
-  id         Int      @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   productId  Int
   rating     Int
   comment    String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime
   authorName String
-  Asset      Asset[]
-  Product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  assets     Asset[]
+  product    Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model SubCategory {
   id         Int       @id @default(autoincrement())
   categoryId Int
   name       String    @unique
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime
-  Product    Product[]
-  Category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  product    Product[]
+  category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Verification {
-  id        Int      @id @default(autoincrement())
-  email     String
+  id       Int     @id @default(autoincrement())
+  email    String
+  verified Boolean @default(false)
+  otp      String
+
   createdAt DateTime @default(now())
-  verified  Boolean  @default(false)
-  otp       String
+  updatedAt DateTime @updatedAt
 }
 
 model OrderItem {
-  id        Int      @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   orderId   Int
   productId Int
   title     String
   price     Float
   quantity  Int
   size      String?
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+
   createdAt DateTime @default(now())
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id])
+  updatedAt DateTime @updatedAt
 }
 
 model Order {
@@ -126,17 +156,18 @@ model Order {
   accountId       Int
   email           String
   phoneNumber     String?
-  slug            String
   totalAmount     Float
   currency        String        @default("INR")
   status          OrderStatus   @default(PENDING)
   paymentStatus   PaymentStatus @default(PENDING)
   shippingAddress Json
   billingAddress  Json?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  slug            String
   account         Account       @relation(fields: [accountId], references: [id])
   items           OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Address {
@@ -152,11 +183,25 @@ model Address {
   country     String      @default("India")
   type        AddressType @default(SHIPPING)
   isDefault   Boolean     @default(false)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
   account     Account     @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([accountId])
+}
+
+model Wishlist {
+  id Int @id @default(autoincrement())
+
+  userId    Int
+  productId Int
+
+  user    Account @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum AssetType {

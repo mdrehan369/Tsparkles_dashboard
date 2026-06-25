@@ -19,7 +19,7 @@ function SubCategoryHoverCard({ category }: { category: CategoryWithSubCategory 
                 </div>
             </HoverCardTrigger>
             <HoverCardContent className='text-sm text-gray-600'>
-                {category.SubCategory.length == 0 ? (
+                {category.subCategory.length == 0 ? (
                     <div className='text-center'>No Subcategories Added Yet</div>
                 ) : (
                     <Table>
@@ -30,10 +30,10 @@ function SubCategoryHoverCard({ category }: { category: CategoryWithSubCategory 
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {category.SubCategory.map(({ id, name, Product }) => (
+                            {category.subCategory.map(({ id, name, product }) => (
                                 <TableRow key={id}>
                                     <TableCell>{name}</TableCell>
-                                    <TableCell>{Product.length}</TableCell>
+                                    <TableCell>{product.length}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

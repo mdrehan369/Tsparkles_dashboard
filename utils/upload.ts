@@ -1,5 +1,5 @@
 import { getUploadParams } from '@/actions/assetManagement';
-import { AssetType } from '@/prisma/generated/prisma/enums';
+import { AssetType } from '@/lib/generated/prisma/enums';
 import {
     ImageKitAbortError,
     ImageKitInvalidRequestError,

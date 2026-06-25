@@ -4,7 +4,7 @@ import { fetchAllProducts } from '@/queries/product';
 import { useQuery } from '@tanstack/react-query';
 import { Image } from '@imagekit/next';
 import { Trash2 } from 'lucide-react';
-import { Product } from '@/prisma/generated/prisma/client';
+import { Product } from '@/lib/generated/prisma/client';
 import ConfirmationBox from '../common/ConfirmationBox';
 import { deleteProduct, markProductPublished } from '@/actions/products';
 import toast from 'react-hot-toast';
@@ -73,9 +73,9 @@ export default function ProductsTable() {
                                 {/* Image */}
                                 <td className='py-3 px-4 flex items-center gap-4'>
                                     <div className='h-12 w-12 overflow-hidden rounded-md border bg-muted'>
-                                        {product.Asset[0] ? (
+                                        {product.assets[0] ? (
                                             <Image
-                                                src={product.Asset[0].url}
+                                                src={product.assets[0].url}
                                                 alt={product.title}
                                                 className='h-full w-full object-cover transition-transform duration-200 hover:scale-110'
                                                 width={500}
@@ -114,14 +114,14 @@ export default function ProductsTable() {
                                 {/* Category */}
                                 <td className='py-3 px-4'>
                                     <span className='inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary'>
-                                        {product.Category.name}
+                                        {product.category.name}
                                     </span>
                                 </td>
 
                                 {/* Sub Category */}
                                 <td className='py-3 px-4'>
                                     <span className='inline-flex items-center rounded-full bg-secondary/10 px-3 py-1 text-xs font-medium text-secondary-foreground'>
-                                        {product.SubCategory.name}
+                                        {product.subCategory.name}
                                     </span>
                                 </td>
                                 <td className='py-3 px-4'>

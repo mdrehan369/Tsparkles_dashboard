@@ -1,15 +1,16 @@
-import { Prisma } from '@/prisma/generated/prisma/client';
+import { Prisma } from '@/lib/generated/prisma/client';
 
 export type CategoryWithSubCategory = Prisma.CategoryGetPayload<{
     include: {
-        SubCategory: {
+        subCategory: {
             include: {
-                Product: {
+                product: {
                     include: {
                         _count: true;
                     };
                 };
             };
         };
+        image: true;
     };
 }>;

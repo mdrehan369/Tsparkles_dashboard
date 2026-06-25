@@ -1,5 +1,5 @@
 'use server';
-import { Asset, Product } from '@/prisma/generated/prisma/client';
+import { Asset, Product } from '@/lib/generated/prisma/client';
 import {
     createProduct,
     deleteAssetFromProductRepo,
@@ -28,7 +28,7 @@ export const deleteProduct = async (productId: Product['id']) => {
         const product = await getProductById(productId);
         if (!product) throw new Error('No product found!');
 
-        for (let asset of product.Asset) await deleteAsset(asset.fileId);
+        for (let asset of product.assets) await deleteAsset(asset.fileId);
 
         const deletedProduct = await deleteProductById(productId);
         if (!deletedProduct) throw new Error('Some error occured while deleting product');

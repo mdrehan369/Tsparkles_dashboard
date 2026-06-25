@@ -101,3 +101,8 @@ export type Order = Prisma.OrderModel
  * 
  */
 export type Address = Prisma.AddressModel
+/**
+ * Model Wishlist
+ * 
+ */
+export type Wishlist = Prisma.WishlistModel

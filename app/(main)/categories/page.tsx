@@ -15,9 +15,15 @@ import { CategoryWithSubCategory } from '@/types/category.types';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import AddSubCategory from '@/components/categories/AddSubCategory';
+import FileUpload from '@/components/products/FileUpload';
+import uploadAsset from '@/utils/upload';
+import Image from 'next/image';
+import { no_image } from '@/constants/constants';
 
 export default function CategoriesPage() {
     const [newCategory, setNewCategory] = useState('');
+    const [categoryBackgroundColor, setCategoryBackgroundColor] = useState('#ffffff');
+    const [files, setFiles] = useState<File[]>([]);
 
     const {
         data: categories,
@@ -35,6 +41,7 @@ export default function CategoriesPage() {
         onSuccess: () => {
             refetch();
             setNewCategory('');
+            setCategoryBackgroundColor('');
             toast.success('Category added successfully!');
         },
         onError: (err: unknown) => {
@@ -44,6 +51,7 @@ export default function CategoriesPage() {
                 toast.error('Some error occurred');
             }
             setNewCategory('');
+            setCategoryBackgroundColor('');
         },
     });
 
@@ -70,13 +78,29 @@ export default function CategoriesPage() {
             toast.error('Please enter a valid name');
             return;
         }
-        mutate(newCategory.trim());
+
+        let image = null;
+
+        if (files.length > 0) {
+            const response = await uploadAsset({ name: files[0].name, file: files[0] });
+            if (response)
+                image = {
+                    url: response.url,
+                    fileId: response.fileId,
+                    type: response.type,
+                };
+        }
+        mutate({
+            name: newCategory.trim(),
+            backgroundColor: categoryBackgroundColor,
+            image: image ?? undefined,
+        });
     };
 
     const handleDeleteCategory = async (name: string) => {
         deleteCategoryMutation(name);
     };
-
+    console.log(categories);
     return (
         <div className='space-y-6'>
             <div>
@@ -89,13 +113,22 @@ export default function CategoriesPage() {
                     <CardTitle className='text-lg font-light'>Add New Category</CardTitle>
                 </CardHeader>
                 <CardContent className='pt-6'>
-                    <form onSubmit={handleAddCategory} className='flex gap-2'>
-                        <Input
-                            placeholder='Category name'
-                            value={newCategory}
-                            onChange={(e) => setNewCategory(e.target.value)}
-                            className='flex-1'
-                        />
+                    <form onSubmit={handleAddCategory} className='flex gap-2 flex-col'>
+                        <div className='flex gap-2 w-full'>
+                            <Input
+                                placeholder='Category name'
+                                value={newCategory}
+                                onChange={(e) => setNewCategory(e.target.value)}
+                                className='flex-1'
+                            />
+                            <Input
+                                type='color'
+                                value={categoryBackgroundColor}
+                                onChange={(e) => setCategoryBackgroundColor(e.target.value)}
+                                className='w-[5%]'
+                            />
+                        </div>
+                        <FileUpload files={files} setFiles={setFiles} multiple={false} />
                         <Button type='submit' className='gap-2'>
                             <Plus size={16} />
                             Add Category
@@ -120,14 +153,30 @@ export default function CategoriesPage() {
                                     key={category.id}
                                     className='flex items-center justify-between p-4 rounded-lg border border-sidebar-border hover:bg-sidebar/50 transition-colors'
                                 >
-                                    <div>
-                                        <p className='font-light text-foreground'>
-                                            {category.name}
-                                        </p>
-                                        <p className='text-xs text-muted-foreground'>
-                                            Created{' '}
-                                            {new Date(category.createdAt).toLocaleDateString()}
-                                        </p>
+                                    <div className='flex items-center justify-start gap-10'>
+                                        <div
+                                            className={`rounded-lg p-2 inline-block`}
+                                            style={{
+                                                backgroundColor:
+                                                    category.backgroundColor || '#ffffff',
+                                            }}
+                                        >
+                                            <Image
+                                                src={category.image?.url || no_image}
+                                                alt='image'
+                                                width={80}
+                                                height={80}
+                                            />
+                                        </div>
+                                        <div>
+                                            <p className='font-light text-foreground'>
+                                                {category.name}
+                                            </p>
+                                            <p className='text-xs text-muted-foreground'>
+                                                Created{' '}
+                                                {new Date(category.createdAt).toLocaleDateString()}
+                                            </p>
+                                        </div>
                                     </div>
                                     <div className='flex items-center gap-2'>
                                         <AddSubCategory

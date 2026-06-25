@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     if (!category)
         return NextResponse.json({ success: false, message: 'No Category found' }, { status: 404 });
 
-    const subcatExists = category.SubCategory.find(
+    const subcatExists = category.subCategory.find(
         (sub) => sub.name.toLowerCase() == name.toLowerCase()
     );
     if (subcatExists)

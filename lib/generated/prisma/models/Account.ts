@@ -39,6 +39,8 @@ export type AccountMinAggregateOutputType = {
   isVerified: boolean | null
   email: string | null
   phoneNumber: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AccountMaxAggregateOutputType = {
@@ -46,6 +48,8 @@ export type AccountMaxAggregateOutputType = {
   isVerified: boolean | null
   email: string | null
   phoneNumber: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AccountCountAggregateOutputType = {
@@ -53,6 +57,8 @@ export type AccountCountAggregateOutputType = {
   isVerified: number
   email: number
   phoneNumber: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -70,6 +76,8 @@ export type AccountMinAggregateInputType = {
   isVerified?: true
   email?: true
   phoneNumber?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AccountMaxAggregateInputType = {
@@ -77,6 +85,8 @@ export type AccountMaxAggregateInputType = {
   isVerified?: true
   email?: true
   phoneNumber?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AccountCountAggregateInputType = {
@@ -84,6 +94,8 @@ export type AccountCountAggregateInputType = {
   isVerified?: true
   email?: true
   phoneNumber?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -178,6 +190,8 @@ export type AccountGroupByOutputType = {
   isVerified: boolean
   email: string
   phoneNumber: string | null
+  createdAt: Date
+  updatedAt: Date
   _count: AccountCountAggregateOutputType | null
   _avg: AccountAvgAggregateOutputType | null
   _sum: AccountSumAggregateOutputType | null
@@ -185,7 +199,7 @@ export type AccountGroupByOutputType = {
   _max: AccountMaxAggregateOutputType | null
 }
 
-type GetAccountGroupByPayload<T extends AccountGroupByArgs> = Prisma.PrismaPromise<
+export type GetAccountGroupByPayload<T extends AccountGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AccountGroupByOutputType, T['by']> &
       {
@@ -208,9 +222,12 @@ export type AccountWhereInput = {
   isVerified?: Prisma.BoolFilter<"Account"> | boolean
   email?: Prisma.StringFilter<"Account"> | string
   phoneNumber?: Prisma.StringNullableFilter<"Account"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   addresses?: Prisma.AddressListRelationFilter
   cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
   orders?: Prisma.OrderListRelationFilter
+  wishlists?: Prisma.WishlistListRelationFilter
 }
 
 export type AccountOrderByWithRelationInput = {
@@ -218,9 +235,12 @@ export type AccountOrderByWithRelationInput = {
   isVerified?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   addresses?: Prisma.AddressOrderByRelationAggregateInput
   cart?: Prisma.CartOrderByWithRelationInput
   orders?: Prisma.OrderOrderByRelationAggregateInput
+  wishlists?: Prisma.WishlistOrderByRelationAggregateInput
 }
 
 export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -231,9 +251,12 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AccountWhereInput[]
   NOT?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   isVerified?: Prisma.BoolFilter<"Account"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   addresses?: Prisma.AddressListRelationFilter
   cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
   orders?: Prisma.OrderListRelationFilter
+  wishlists?: Prisma.WishlistListRelationFilter
 }, "id" | "email" | "phoneNumber">
 
 export type AccountOrderByWithAggregationInput = {
@@ -241,6 +264,8 @@ export type AccountOrderByWithAggregationInput = {
   isVerified?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.AccountCountOrderByAggregateInput
   _avg?: Prisma.AccountAvgOrderByAggregateInput
   _max?: Prisma.AccountMaxOrderByAggregateInput
@@ -256,15 +281,20 @@ export type AccountScalarWhereWithAggregatesInput = {
   isVerified?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
   email?: Prisma.StringWithAggregatesFilter<"Account"> | string
   phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
 }
 
 export type AccountCreateInput = {
   isVerified?: boolean
   email: string
   phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   addresses?: Prisma.AddressCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderCreateNestedManyWithoutAccountInput
+  wishlists?: Prisma.WishlistCreateNestedManyWithoutUserInput
 }
 
 export type AccountUncheckedCreateInput = {
@@ -272,18 +302,24 @@ export type AccountUncheckedCreateInput = {
   isVerified?: boolean
   email: string
   phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutAccountInput
+  wishlists?: Prisma.WishlistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type AccountUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addresses?: Prisma.AddressUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUpdateManyWithoutAccountNestedInput
+  wishlists?: Prisma.WishlistUpdateManyWithoutUserNestedInput
 }
 
 export type AccountUncheckedUpdateInput = {
@@ -291,9 +327,12 @@ export type AccountUncheckedUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutAccountNestedInput
+  wishlists?: Prisma.WishlistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type AccountCreateManyInput = {
@@ -301,12 +340,16 @@ export type AccountCreateManyInput = {
   isVerified?: boolean
   email: string
   phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AccountUpdateManyMutationInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AccountUncheckedUpdateManyInput = {
@@ -314,6 +357,8 @@ export type AccountUncheckedUpdateManyInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AccountCountOrderByAggregateInput = {
@@ -321,6 +366,8 @@ export type AccountCountOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AccountAvgOrderByAggregateInput = {
@@ -332,6 +379,8 @@ export type AccountMaxOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AccountMinOrderByAggregateInput = {
@@ -339,6 +388,8 @@ export type AccountMinOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AccountSumOrderByAggregateInput = {
@@ -360,6 +411,10 @@ export type StringFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -412,12 +467,29 @@ export type AccountUpdateOneRequiredWithoutAddressesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutAddressesInput, Prisma.AccountUpdateWithoutAddressesInput>, Prisma.AccountUncheckedUpdateWithoutAddressesInput>
 }
 
+export type AccountCreateNestedOneWithoutWishlistsInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutWishlistsInput, Prisma.AccountUncheckedCreateWithoutWishlistsInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutWishlistsInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutWishlistsNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutWishlistsInput, Prisma.AccountUncheckedCreateWithoutWishlistsInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutWishlistsInput
+  upsert?: Prisma.AccountUpsertWithoutWishlistsInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutWishlistsInput, Prisma.AccountUpdateWithoutWishlistsInput>, Prisma.AccountUncheckedUpdateWithoutWishlistsInput>
+}
+
 export type AccountCreateWithoutCartInput = {
   isVerified?: boolean
   email: string
   phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   addresses?: Prisma.AddressCreateNestedManyWithoutAccountInput
   orders?: Prisma.OrderCreateNestedManyWithoutAccountInput
+  wishlists?: Prisma.WishlistCreateNestedManyWithoutUserInput
 }
 
 export type AccountUncheckedCreateWithoutCartInput = {
@@ -425,8 +497,11 @@ export type AccountUncheckedCreateWithoutCartInput = {
   isVerified?: boolean
   email: string
   phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAccountInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutAccountInput
+  wishlists?: Prisma.WishlistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type AccountCreateOrConnectWithoutCartInput = {
@@ -449,8 +524,11 @@ export type AccountUpdateWithoutCartInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addresses?: Prisma.AddressUpdateManyWithoutAccountNestedInput
   orders?: Prisma.OrderUpdateManyWithoutAccountNestedInput
+  wishlists?: Prisma.WishlistUpdateManyWithoutUserNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutCartInput = {
@@ -458,16 +536,22 @@ export type AccountUncheckedUpdateWithoutCartInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAccountNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutAccountNestedInput
+  wishlists?: Prisma.WishlistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type AccountCreateWithoutOrdersInput = {
   isVerified?: boolean
   email: string
   phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   addresses?: Prisma.AddressCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartCreateNestedOneWithoutAccountInput
+  wishlists?: Prisma.WishlistCreateNestedManyWithoutUserInput
 }
 
 export type AccountUncheckedCreateWithoutOrdersInput = {
@@ -475,8 +559,11 @@ export type AccountUncheckedCreateWithoutOrdersInput = {
   isVerified?: boolean
   email: string
   phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutAccountInput
+  wishlists?: Prisma.WishlistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type AccountCreateOrConnectWithoutOrdersInput = {
@@ -499,8 +586,11 @@ export type AccountUpdateWithoutOrdersInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addresses?: Prisma.AddressUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUpdateOneWithoutAccountNestedInput
+  wishlists?: Prisma.WishlistUpdateManyWithoutUserNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutOrdersInput = {
@@ -508,16 +598,22 @@ export type AccountUncheckedUpdateWithoutOrdersInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutAccountNestedInput
+  wishlists?: Prisma.WishlistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type AccountCreateWithoutAddressesInput = {
   isVerified?: boolean
   email: string
   phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   cart?: Prisma.CartCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderCreateNestedManyWithoutAccountInput
+  wishlists?: Prisma.WishlistCreateNestedManyWithoutUserInput
 }
 
 export type AccountUncheckedCreateWithoutAddressesInput = {
@@ -525,8 +621,11 @@ export type AccountUncheckedCreateWithoutAddressesInput = {
   isVerified?: boolean
   email: string
   phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutAccountInput
+  wishlists?: Prisma.WishlistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type AccountCreateOrConnectWithoutAddressesInput = {
@@ -549,8 +648,11 @@ export type AccountUpdateWithoutAddressesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CartUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUpdateManyWithoutAccountNestedInput
+  wishlists?: Prisma.WishlistUpdateManyWithoutUserNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutAddressesInput = {
@@ -558,6 +660,71 @@ export type AccountUncheckedUpdateWithoutAddressesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cart?: Prisma.CartUncheckedUpdateOneWithoutAccountNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutAccountNestedInput
+  wishlists?: Prisma.WishlistUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type AccountCreateWithoutWishlistsInput = {
+  isVerified?: boolean
+  email: string
+  phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  addresses?: Prisma.AddressCreateNestedManyWithoutAccountInput
+  cart?: Prisma.CartCreateNestedOneWithoutAccountInput
+  orders?: Prisma.OrderCreateNestedManyWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutWishlistsInput = {
+  id?: number
+  isVerified?: boolean
+  email: string
+  phoneNumber?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAccountInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutAccountInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutWishlistsInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutWishlistsInput, Prisma.AccountUncheckedCreateWithoutWishlistsInput>
+}
+
+export type AccountUpsertWithoutWishlistsInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutWishlistsInput, Prisma.AccountUncheckedUpdateWithoutWishlistsInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutWishlistsInput, Prisma.AccountUncheckedCreateWithoutWishlistsInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutWishlistsInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutWishlistsInput, Prisma.AccountUncheckedUpdateWithoutWishlistsInput>
+}
+
+export type AccountUpdateWithoutWishlistsInput = {
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  addresses?: Prisma.AddressUpdateManyWithoutAccountNestedInput
+  cart?: Prisma.CartUpdateOneWithoutAccountNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutWishlistsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  addresses?: Prisma.AddressUncheckedUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutAccountNestedInput
 }
@@ -570,11 +737,13 @@ export type AccountUncheckedUpdateWithoutAddressesInput = {
 export type AccountCountOutputType = {
   addresses: number
   orders: number
+  wishlists: number
 }
 
 export type AccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   addresses?: boolean | AccountCountOutputTypeCountAddressesArgs
   orders?: boolean | AccountCountOutputTypeCountOrdersArgs
+  wishlists?: boolean | AccountCountOutputTypeCountWishlistsArgs
 }
 
 /**
@@ -601,15 +770,25 @@ export type AccountCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.
   where?: Prisma.OrderWhereInput
 }
 
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountWishlistsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WishlistWhereInput
+}
+
 
 export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   isVerified?: boolean
   email?: boolean
   phoneNumber?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   addresses?: boolean | Prisma.Account$addressesArgs<ExtArgs>
   cart?: boolean | Prisma.Account$cartArgs<ExtArgs>
   orders?: boolean | Prisma.Account$ordersArgs<ExtArgs>
+  wishlists?: boolean | Prisma.Account$wishlistsArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
@@ -618,6 +797,8 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   isVerified?: boolean
   email?: boolean
   phoneNumber?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -625,6 +806,8 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   isVerified?: boolean
   email?: boolean
   phoneNumber?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectScalar = {
@@ -632,13 +815,16 @@ export type AccountSelectScalar = {
   isVerified?: boolean
   email?: boolean
   phoneNumber?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isVerified" | "email" | "phoneNumber", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isVerified" | "email" | "phoneNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   addresses?: boolean | Prisma.Account$addressesArgs<ExtArgs>
   cart?: boolean | Prisma.Account$cartArgs<ExtArgs>
   orders?: boolean | Prisma.Account$ordersArgs<ExtArgs>
+  wishlists?: boolean | Prisma.Account$wishlistsArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -650,12 +836,15 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     addresses: Prisma.$AddressPayload<ExtArgs>[]
     cart: Prisma.$CartPayload<ExtArgs> | null
     orders: Prisma.$OrderPayload<ExtArgs>[]
+    wishlists: Prisma.$WishlistPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     isVerified: boolean
     email: string
     phoneNumber: string | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["account"]>
   composites: {}
 }
@@ -1053,6 +1242,7 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
   addresses<T extends Prisma.Account$addressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cart<T extends Prisma.Account$cartArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$cartArgs<ExtArgs>>): Prisma.Prisma__CartClient<runtime.Types.Result.GetResult<Prisma.$CartPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   orders<T extends Prisma.Account$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  wishlists<T extends Prisma.Account$wishlistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$wishlistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WishlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1086,6 +1276,8 @@ export interface AccountFieldRefs {
   readonly isVerified: Prisma.FieldRef<"Account", 'Boolean'>
   readonly email: Prisma.FieldRef<"Account", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"Account", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Account", 'DateTime'>
 }
     
 
@@ -1282,6 +1474,11 @@ export type AccountFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` Accounts.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Accounts.
+   */
   distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
 }
 
@@ -1538,6 +1735,30 @@ export type Account$ordersArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+}
+
+/**
+ * Account.wishlists
+ */
+export type Account$wishlistsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Wishlist
+   */
+  select?: Prisma.WishlistSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Wishlist
+   */
+  omit?: Prisma.WishlistOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WishlistInclude<ExtArgs> | null
+  where?: Prisma.WishlistWhereInput
+  orderBy?: Prisma.WishlistOrderByWithRelationInput | Prisma.WishlistOrderByWithRelationInput[]
+  cursor?: Prisma.WishlistWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WishlistScalarFieldEnum | Prisma.WishlistScalarFieldEnum[]
 }
 
 /**

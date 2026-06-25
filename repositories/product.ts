@@ -1,11 +1,10 @@
 import { prisma } from '@/lib/prisma';
-import { Asset, Category, Prisma, Product } from '@/prisma/generated/prisma/client';
+import { Asset, Category, Prisma, Product } from '@/lib/generated/prisma/client';
 import { AddProductParams } from '@/types/product.types';
-import { string } from 'zod';
 
 async function createProduct({
     categoryId,
-    description,
+    details,
     comparePrice,
     title,
     price,
@@ -21,15 +20,16 @@ async function createProduct({
             categoryId,
             subCategoryId,
             comparePrice,
-            description,
-            Asset: {
+            details,
+            assets: {
                 createMany: {
                     data: files,
                 },
             },
+            updatedAt: new Date(),
         },
         include: {
-            Asset: true,
+            assets: true,
         },
     });
 
@@ -56,9 +56,9 @@ async function getProducts({
     const products = await prisma.product.findMany({
         where: query,
         include: {
-            Asset: true,
-            Category: true,
-            SubCategory: true,
+            assets: true,
+            category: true,
+            subCategory: true,
         },
         skip: (page - 1) * limit,
         take: limit,
@@ -73,7 +73,7 @@ async function getProductById(id: Product['id']) {
             id,
         },
         include: {
-            Asset: true,
+            assets: true,
         },
     });
 }
@@ -89,31 +89,30 @@ async function deleteProductById(id: Product['id']) {
 }
 
 async function updateProductRepo(id: Product['id'], updateData: AddProductParams) {
-    const { title, categoryId, price, description, comparePrice, subCategoryId, files } =
-        updateData;
+    const { title, categoryId, price, details, comparePrice, subCategoryId, files } = updateData;
     const updatedProduct = await prisma.product.update({
         where: {
             id,
         },
         data: {
             title,
-            description,
+            details,
             price,
             comparePrice,
-            Category: {
+            category: {
                 connect: { id: categoryId },
             },
-            SubCategory: {
+            subCategory: {
                 connect: { id: subCategoryId },
             },
-            Asset: {
+            assets: {
                 createMany: { data: files, skipDuplicates: true },
             },
         },
         include: {
-            Asset: true,
-            Category: true,
-            SubCategory: true,
+            assets: true,
+            category: true,
+            subCategory: true,
         },
     });
 
@@ -123,9 +122,9 @@ async function updateProductRepo(id: Product['id'], updateData: AddProductParams
 async function deleteAssetFromProductRepo(id: Product['id'], fileId: Asset['fileId']) {
     return await prisma.product.update({
         where: { id },
-        include: { Asset: true },
+        include: { assets: true },
         data: {
-            Asset: {
+            assets: {
                 deleteMany: {
                     fileId,
                 },

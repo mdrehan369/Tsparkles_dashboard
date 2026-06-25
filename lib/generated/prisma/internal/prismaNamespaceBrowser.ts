@@ -62,7 +62,8 @@ export const ModelName = {
   Verification: 'Verification',
   OrderItem: 'OrderItem',
   Order: 'Order',
-  Address: 'Address'
+  Address: 'Address',
+  Wishlist: 'Wishlist'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -85,7 +86,9 @@ export const AccountScalarFieldEnum = {
   id: 'id',
   isVerified: 'isVerified',
   email: 'email',
-  phoneNumber: 'phoneNumber'
+  phoneNumber: 'phoneNumber',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -93,12 +96,15 @@ export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeo
 
 export const AssetScalarFieldEnum = {
   id: 'id',
-  productId: 'productId',
   url: 'url',
+  fileId: 'fileId',
   type: 'type',
   altText: 'altText',
-  fileId: 'fileId',
-  reviewId: 'reviewId'
+  productId: 'productId',
+  reviewId: 'reviewId',
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
@@ -106,7 +112,9 @@ export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof As
 
 export const CartScalarFieldEnum = {
   id: 'id',
-  accountId: 'accountId'
+  accountId: 'accountId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type CartScalarFieldEnum = (typeof CartScalarFieldEnum)[keyof typeof CartScalarFieldEnum]
@@ -116,9 +124,10 @@ export const CartItemScalarFieldEnum = {
   id: 'id',
   cartId: 'cartId',
   productId: 'productId',
-  createdAt: 'createdAt',
+  size: 'size',
   quantity: 'quantity',
-  size: 'size'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typeof CartItemScalarFieldEnum]
@@ -127,6 +136,7 @@ export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typ
 export const CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  backgroundColor: 'backgroundColor',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -138,15 +148,17 @@ export const ProductScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   title: 'title',
-  description: 'description',
+  details: 'details',
+  materials: 'materials',
+  shipping: 'shipping',
   price: 'price',
   comparePrice: 'comparePrice',
   categoryId: 'categoryId',
   subCategoryId: 'subCategoryId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   isPublished: 'isPublished',
-  inventory: 'inventory'
+  inventory: 'inventory',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -157,9 +169,9 @@ export const ReviewScalarFieldEnum = {
   productId: 'productId',
   rating: 'rating',
   comment: 'comment',
+  authorName: 'authorName',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  authorName: 'authorName'
+  updatedAt: 'updatedAt'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
@@ -179,9 +191,10 @@ export type SubCategoryScalarFieldEnum = (typeof SubCategoryScalarFieldEnum)[key
 export const VerificationScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  createdAt: 'createdAt',
   verified: 'verified',
-  otp: 'otp'
+  otp: 'otp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
@@ -195,7 +208,8 @@ export const OrderItemScalarFieldEnum = {
   price: 'price',
   quantity: 'quantity',
   size: 'size',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
@@ -207,13 +221,13 @@ export const OrderScalarFieldEnum = {
   accountId: 'accountId',
   email: 'email',
   phoneNumber: 'phoneNumber',
-  slug: 'slug',
   totalAmount: 'totalAmount',
   currency: 'currency',
   status: 'status',
   paymentStatus: 'paymentStatus',
   shippingAddress: 'shippingAddress',
   billingAddress: 'billingAddress',
+  slug: 'slug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -239,6 +253,17 @@ export const AddressScalarFieldEnum = {
 } as const
 
 export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
+
+
+export const WishlistScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  productId: 'productId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WishlistScalarFieldEnum = (typeof WishlistScalarFieldEnum)[keyof typeof WishlistScalarFieldEnum]
 
 
 export const SortOrder = {
