@@ -82,3 +82,13 @@ export type Address = Prisma.AddressModel
  * 
  */
 export type Wishlist = Prisma.WishlistModel
+/**
+ * Model ProductColor
+ * 
+ */
+export type ProductColor = Prisma.ProductColorModel
+/**
+ * Model ProductVariant
+ * 
+ */
+export type ProductVariant = Prisma.ProductVariantModel

@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.8.0
- * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
+ * Prisma Client JS version: 7.4.1
+ * Query Engine version: 55ae170b1ced7fc6ed07a15f110549408c501bb3
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.8.0",
-  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
+  client: "7.4.1",
+  engine: "55ae170b1ced7fc6ed07a15f110549408c501bb3"
 }
 
 /**
@@ -396,7 +396,9 @@ export const ModelName = {
   OrderItem: 'OrderItem',
   Order: 'Order',
   Address: 'Address',
-  Wishlist: 'Wishlist'
+  Wishlist: 'Wishlist',
+  ProductColor: 'ProductColor',
+  ProductVariant: 'ProductVariant'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -412,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "asset" | "cart" | "cartItem" | "category" | "product" | "review" | "subCategory" | "verification" | "orderItem" | "order" | "address" | "wishlist"
+    modelProps: "account" | "asset" | "cart" | "cartItem" | "category" | "product" | "review" | "subCategory" | "verification" | "orderItem" | "order" | "address" | "wishlist" | "productColor" | "productVariant"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1378,6 +1380,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ProductColor: {
+      payload: Prisma.$ProductColorPayload<ExtArgs>
+      fields: Prisma.ProductColorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProductColorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProductColorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>
+        }
+        findFirst: {
+          args: Prisma.ProductColorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProductColorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>
+        }
+        findMany: {
+          args: Prisma.ProductColorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>[]
+        }
+        create: {
+          args: Prisma.ProductColorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>
+        }
+        createMany: {
+          args: Prisma.ProductColorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProductColorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>[]
+        }
+        delete: {
+          args: Prisma.ProductColorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>
+        }
+        update: {
+          args: Prisma.ProductColorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProductColorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProductColorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProductColorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProductColorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>
+        }
+        aggregate: {
+          args: Prisma.ProductColorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProductColor>
+        }
+        groupBy: {
+          args: Prisma.ProductColorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductColorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProductColorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductColorCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProductVariant: {
+      payload: Prisma.$ProductVariantPayload<ExtArgs>
+      fields: Prisma.ProductVariantFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProductVariantFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProductVariantFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload>
+        }
+        findFirst: {
+          args: Prisma.ProductVariantFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProductVariantFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload>
+        }
+        findMany: {
+          args: Prisma.ProductVariantFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload>[]
+        }
+        create: {
+          args: Prisma.ProductVariantCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload>
+        }
+        createMany: {
+          args: Prisma.ProductVariantCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProductVariantCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload>[]
+        }
+        delete: {
+          args: Prisma.ProductVariantDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload>
+        }
+        update: {
+          args: Prisma.ProductVariantUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProductVariantDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProductVariantUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProductVariantUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProductVariantUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductVariantPayload>
+        }
+        aggregate: {
+          args: Prisma.ProductVariantAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProductVariant>
+        }
+        groupBy: {
+          args: Prisma.ProductVariantGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductVariantGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProductVariantCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductVariantCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1423,7 +1573,10 @@ export const AccountScalarFieldEnum = {
   email: 'email',
   phoneNumber: 'phoneNumber',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  imageUrl: 'imageUrl',
+  name: 'name',
+  oAuthProvider: 'oAuthProvider'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -1431,11 +1584,11 @@ export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeo
 
 export const AssetScalarFieldEnum = {
   id: 'id',
+  productId: 'productId',
   url: 'url',
-  fileId: 'fileId',
   type: 'type',
   altText: 'altText',
-  productId: 'productId',
+  fileId: 'fileId',
   reviewId: 'reviewId',
   categoryId: 'categoryId',
   createdAt: 'createdAt',
@@ -1458,11 +1611,11 @@ export type CartScalarFieldEnum = (typeof CartScalarFieldEnum)[keyof typeof Cart
 export const CartItemScalarFieldEnum = {
   id: 'id',
   cartId: 'cartId',
-  productId: 'productId',
-  size: 'size',
-  quantity: 'quantity',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  quantity: 'quantity',
+  updatedAt: 'updatedAt',
+  productVariantId: 'productVariantId',
+  productColorId: 'productColorId'
 } as const
 
 export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typeof CartItemScalarFieldEnum]
@@ -1471,9 +1624,9 @@ export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typ
 export const CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  backgroundColor: 'backgroundColor',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  backgroundColor: 'backgroundColor'
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -1483,17 +1636,13 @@ export const ProductScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   title: 'title',
-  details: 'details',
-  materials: 'materials',
-  shipping: 'shipping',
-  price: 'price',
-  comparePrice: 'comparePrice',
   categoryId: 'categoryId',
   subCategoryId: 'subCategoryId',
-  isPublished: 'isPublished',
-  inventory: 'inventory',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isPublished: 'isPublished',
+  details: 'details',
+  minPrice: 'minPrice'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -1504,9 +1653,9 @@ export const ReviewScalarFieldEnum = {
   productId: 'productId',
   rating: 'rating',
   comment: 'comment',
-  authorName: 'authorName',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  authorName: 'authorName'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
@@ -1526,9 +1675,9 @@ export type SubCategoryScalarFieldEnum = (typeof SubCategoryScalarFieldEnum)[key
 export const VerificationScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  createdAt: 'createdAt',
   verified: 'verified',
   otp: 'otp',
-  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
@@ -1562,9 +1711,9 @@ export const OrderScalarFieldEnum = {
   paymentStatus: 'paymentStatus',
   shippingAddress: 'shippingAddress',
   billingAddress: 'billingAddress',
-  slug: 'slug',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  slug: 'slug'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
@@ -1599,6 +1748,34 @@ export const WishlistScalarFieldEnum = {
 } as const
 
 export type WishlistScalarFieldEnum = (typeof WishlistScalarFieldEnum)[keyof typeof WishlistScalarFieldEnum]
+
+
+export const ProductColorScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  color: 'color',
+  label: 'label',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductColorScalarFieldEnum = (typeof ProductColorScalarFieldEnum)[keyof typeof ProductColorScalarFieldEnum]
+
+
+export const ProductVariantScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  stock: 'stock',
+  size: 'size',
+  unit: 'unit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  comparePrice: 'comparePrice',
+  price: 'price',
+  weight: 'weight'
+} as const
+
+export type ProductVariantScalarFieldEnum = (typeof ProductVariantScalarFieldEnum)[keyof typeof ProductVariantScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1705,6 +1882,20 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'OAuthProvider'
+ */
+export type EnumOAuthProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OAuthProvider'>
+    
+
+
+/**
+ * Reference to a field of type 'OAuthProvider[]'
+ */
+export type ListEnumOAuthProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OAuthProvider[]'>
+    
+
+
+/**
  * Reference to a field of type 'AssetType'
  */
 export type EnumAssetTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssetType'>
@@ -1785,6 +1976,20 @@ export type EnumAddressTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'AddressType[]'
  */
 export type ListEnumAddressTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AddressType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductSizeUnit'
+ */
+export type EnumProductSizeUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductSizeUnit'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductSizeUnit[]'
+ */
+export type ListEnumProductSizeUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductSizeUnit[]'>
     
 
 /**
@@ -1880,21 +2085,6 @@ export type PrismaClientOptions = ({
    * ```
    */
   comments?: runtime.SqlCommenterPlugin[]
-  /**
-   * Optional maximum size for the query plan cache. If not provided, a default size will be used.
-   * A value of `0` can be used to disable the cache entirely. A higher cache size can improve
-   * performance for applications that execute a large number of unique queries, while a smaller
-   * cache size can reduce memory usage.
-   * 
-   * @example
-   * ```
-   * const prisma = new PrismaClient({
-   *   adapter,
-   *   queryPlanCacheMaxSize: 100,
-   * })
-   * ```
-   */
-  queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
@@ -1910,6 +2100,8 @@ export type GlobalOmitConfig = {
   order?: Prisma.OrderOmit
   address?: Prisma.AddressOmit
   wishlist?: Prisma.WishlistOmit
+  productColor?: Prisma.ProductColorOmit
+  productVariant?: Prisma.ProductVariantOmit
 }
 
 /* Types for Logging */

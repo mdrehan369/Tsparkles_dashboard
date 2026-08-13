@@ -45,3 +45,21 @@ export const AddressType = {
 } as const
 
 export type AddressType = (typeof AddressType)[keyof typeof AddressType]
+
+
+export const OAuthProvider = {
+  GOOGLE: 'GOOGLE',
+  INSTAGRAM: 'INSTAGRAM',
+  FACEBOOK: 'FACEBOOK'
+} as const
+
+export type OAuthProvider = (typeof OAuthProvider)[keyof typeof OAuthProvider]
+
+
+export const ProductSizeUnit = {
+  INCH: 'INCH',
+  CM: 'CM',
+  M: 'M'
+} as const
+
+export type ProductSizeUnit = (typeof ProductSizeUnit)[keyof typeof ProductSizeUnit]

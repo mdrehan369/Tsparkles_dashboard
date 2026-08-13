@@ -42,11 +42,11 @@ export type AssetSumAggregateOutputType = {
 
 export type AssetMinAggregateOutputType = {
   id: number | null
+  productId: number | null
   url: string | null
-  fileId: string | null
   type: $Enums.AssetType | null
   altText: string | null
-  productId: number | null
+  fileId: string | null
   reviewId: number | null
   categoryId: number | null
   createdAt: Date | null
@@ -55,11 +55,11 @@ export type AssetMinAggregateOutputType = {
 
 export type AssetMaxAggregateOutputType = {
   id: number | null
+  productId: number | null
   url: string | null
-  fileId: string | null
   type: $Enums.AssetType | null
   altText: string | null
-  productId: number | null
+  fileId: string | null
   reviewId: number | null
   categoryId: number | null
   createdAt: Date | null
@@ -68,11 +68,11 @@ export type AssetMaxAggregateOutputType = {
 
 export type AssetCountAggregateOutputType = {
   id: number
+  productId: number
   url: number
-  fileId: number
   type: number
   altText: number
-  productId: number
+  fileId: number
   reviewId: number
   categoryId: number
   createdAt: number
@@ -97,11 +97,11 @@ export type AssetSumAggregateInputType = {
 
 export type AssetMinAggregateInputType = {
   id?: true
+  productId?: true
   url?: true
-  fileId?: true
   type?: true
   altText?: true
-  productId?: true
+  fileId?: true
   reviewId?: true
   categoryId?: true
   createdAt?: true
@@ -110,11 +110,11 @@ export type AssetMinAggregateInputType = {
 
 export type AssetMaxAggregateInputType = {
   id?: true
+  productId?: true
   url?: true
-  fileId?: true
   type?: true
   altText?: true
-  productId?: true
+  fileId?: true
   reviewId?: true
   categoryId?: true
   createdAt?: true
@@ -123,11 +123,11 @@ export type AssetMaxAggregateInputType = {
 
 export type AssetCountAggregateInputType = {
   id?: true
+  productId?: true
   url?: true
-  fileId?: true
   type?: true
   altText?: true
-  productId?: true
+  fileId?: true
   reviewId?: true
   categoryId?: true
   createdAt?: true
@@ -223,11 +223,11 @@ export type AssetGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type AssetGroupByOutputType = {
   id: number
+  productId: number | null
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText: string | null
-  productId: number | null
+  fileId: string
   reviewId: number | null
   categoryId: number | null
   createdAt: Date
@@ -239,7 +239,7 @@ export type AssetGroupByOutputType = {
   _max: AssetMaxAggregateOutputType | null
 }
 
-export type GetAssetGroupByPayload<T extends AssetGroupByArgs> = Prisma.PrismaPromise<
+type GetAssetGroupByPayload<T extends AssetGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AssetGroupByOutputType, T['by']> &
       {
@@ -259,34 +259,34 @@ export type AssetWhereInput = {
   OR?: Prisma.AssetWhereInput[]
   NOT?: Prisma.AssetWhereInput | Prisma.AssetWhereInput[]
   id?: Prisma.IntFilter<"Asset"> | number
+  productId?: Prisma.IntNullableFilter<"Asset"> | number | null
   url?: Prisma.StringFilter<"Asset"> | string
-  fileId?: Prisma.StringFilter<"Asset"> | string
   type?: Prisma.EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
   altText?: Prisma.StringNullableFilter<"Asset"> | string | null
-  productId?: Prisma.IntNullableFilter<"Asset"> | number | null
+  fileId?: Prisma.StringFilter<"Asset"> | string
   reviewId?: Prisma.IntNullableFilter<"Asset"> | number | null
   categoryId?: Prisma.IntNullableFilter<"Asset"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
+  category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
-  category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
 }
 
 export type AssetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  productId?: Prisma.SortOrderInput | Prisma.SortOrder
   url?: Prisma.SortOrder
-  fileId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   altText?: Prisma.SortOrderInput | Prisma.SortOrder
-  productId?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  category?: Prisma.CategoryOrderByWithRelationInput
   product?: Prisma.ProductOrderByWithRelationInput
   review?: Prisma.ReviewOrderByWithRelationInput
-  category?: Prisma.CategoryOrderByWithRelationInput
 }
 
 export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -296,25 +296,25 @@ export type AssetWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AssetWhereInput | Prisma.AssetWhereInput[]
   OR?: Prisma.AssetWhereInput[]
   NOT?: Prisma.AssetWhereInput | Prisma.AssetWhereInput[]
+  productId?: Prisma.IntNullableFilter<"Asset"> | number | null
   url?: Prisma.StringFilter<"Asset"> | string
   type?: Prisma.EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
   altText?: Prisma.StringNullableFilter<"Asset"> | string | null
-  productId?: Prisma.IntNullableFilter<"Asset"> | number | null
   reviewId?: Prisma.IntNullableFilter<"Asset"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
+  category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
-  category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
 }, "id" | "fileId" | "categoryId">
 
 export type AssetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  productId?: Prisma.SortOrderInput | Prisma.SortOrder
   url?: Prisma.SortOrder
-  fileId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   altText?: Prisma.SortOrderInput | Prisma.SortOrder
-  productId?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -331,11 +331,11 @@ export type AssetScalarWhereWithAggregatesInput = {
   OR?: Prisma.AssetScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AssetScalarWhereWithAggregatesInput | Prisma.AssetScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Asset"> | number
+  productId?: Prisma.IntNullableWithAggregatesFilter<"Asset"> | number | null
   url?: Prisma.StringWithAggregatesFilter<"Asset"> | string
-  fileId?: Prisma.StringWithAggregatesFilter<"Asset"> | string
   type?: Prisma.EnumAssetTypeWithAggregatesFilter<"Asset"> | $Enums.AssetType
   altText?: Prisma.StringNullableWithAggregatesFilter<"Asset"> | string | null
-  productId?: Prisma.IntNullableWithAggregatesFilter<"Asset"> | number | null
+  fileId?: Prisma.StringWithAggregatesFilter<"Asset"> | string
   reviewId?: Prisma.IntNullableWithAggregatesFilter<"Asset"> | number | null
   categoryId?: Prisma.IntNullableWithAggregatesFilter<"Asset"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Asset"> | Date | string
@@ -344,23 +344,23 @@ export type AssetScalarWhereWithAggregatesInput = {
 
 export type AssetCreateInput = {
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
+  fileId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  category?: Prisma.CategoryCreateNestedOneWithoutImageInput
   product?: Prisma.ProductCreateNestedOneWithoutAssetsInput
   review?: Prisma.ReviewCreateNestedOneWithoutAssetsInput
-  category?: Prisma.CategoryCreateNestedOneWithoutImageInput
 }
 
 export type AssetUncheckedCreateInput = {
   id?: number
+  productId?: number | null
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
-  productId?: number | null
+  fileId: string
   reviewId?: number | null
   categoryId?: number | null
   createdAt?: Date | string
@@ -369,23 +369,23 @@ export type AssetUncheckedCreateInput = {
 
 export type AssetUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  category?: Prisma.CategoryUpdateOneWithoutImageNestedInput
   product?: Prisma.ProductUpdateOneWithoutAssetsNestedInput
   review?: Prisma.ReviewUpdateOneWithoutAssetsNestedInput
-  category?: Prisma.CategoryUpdateOneWithoutImageNestedInput
 }
 
 export type AssetUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -394,11 +394,11 @@ export type AssetUncheckedUpdateInput = {
 
 export type AssetCreateManyInput = {
   id?: number
+  productId?: number | null
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
-  productId?: number | null
+  fileId: string
   reviewId?: number | null
   categoryId?: number | null
   createdAt?: Date | string
@@ -407,20 +407,20 @@ export type AssetCreateManyInput = {
 
 export type AssetUpdateManyMutationInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AssetUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -429,11 +429,11 @@ export type AssetUncheckedUpdateManyInput = {
 
 export type AssetCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  fileId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   altText?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
+  fileId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -449,11 +449,11 @@ export type AssetAvgOrderByAggregateInput = {
 
 export type AssetMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  fileId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   altText?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
+  fileId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -462,11 +462,11 @@ export type AssetMaxOrderByAggregateInput = {
 
 export type AssetMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  fileId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   altText?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
+  fileId?: Prisma.SortOrder
   reviewId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -625,9 +625,9 @@ export type AssetUncheckedUpdateManyWithoutReviewNestedInput = {
 
 export type AssetCreateWithoutCategoryInput = {
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
+  fileId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   product?: Prisma.ProductCreateNestedOneWithoutAssetsInput
@@ -636,11 +636,11 @@ export type AssetCreateWithoutCategoryInput = {
 
 export type AssetUncheckedCreateWithoutCategoryInput = {
   id?: number
+  productId?: number | null
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
-  productId?: number | null
+  fileId: string
   reviewId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -664,9 +664,9 @@ export type AssetUpdateToOneWithWhereWithoutCategoryInput = {
 
 export type AssetUpdateWithoutCategoryInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneWithoutAssetsNestedInput
@@ -675,11 +675,11 @@ export type AssetUpdateWithoutCategoryInput = {
 
 export type AssetUncheckedUpdateWithoutCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -687,21 +687,21 @@ export type AssetUncheckedUpdateWithoutCategoryInput = {
 
 export type AssetCreateWithoutProductInput = {
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
+  fileId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  review?: Prisma.ReviewCreateNestedOneWithoutAssetsInput
   category?: Prisma.CategoryCreateNestedOneWithoutImageInput
+  review?: Prisma.ReviewCreateNestedOneWithoutAssetsInput
 }
 
 export type AssetUncheckedCreateWithoutProductInput = {
   id?: number
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
+  fileId: string
   reviewId?: number | null
   categoryId?: number | null
   createdAt?: Date | string
@@ -739,11 +739,11 @@ export type AssetScalarWhereInput = {
   OR?: Prisma.AssetScalarWhereInput[]
   NOT?: Prisma.AssetScalarWhereInput | Prisma.AssetScalarWhereInput[]
   id?: Prisma.IntFilter<"Asset"> | number
+  productId?: Prisma.IntNullableFilter<"Asset"> | number | null
   url?: Prisma.StringFilter<"Asset"> | string
-  fileId?: Prisma.StringFilter<"Asset"> | string
   type?: Prisma.EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
   altText?: Prisma.StringNullableFilter<"Asset"> | string | null
-  productId?: Prisma.IntNullableFilter<"Asset"> | number | null
+  fileId?: Prisma.StringFilter<"Asset"> | string
   reviewId?: Prisma.IntNullableFilter<"Asset"> | number | null
   categoryId?: Prisma.IntNullableFilter<"Asset"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
@@ -752,22 +752,22 @@ export type AssetScalarWhereInput = {
 
 export type AssetCreateWithoutReviewInput = {
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
+  fileId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  product?: Prisma.ProductCreateNestedOneWithoutAssetsInput
   category?: Prisma.CategoryCreateNestedOneWithoutImageInput
+  product?: Prisma.ProductCreateNestedOneWithoutAssetsInput
 }
 
 export type AssetUncheckedCreateWithoutReviewInput = {
   id?: number
+  productId?: number | null
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
-  productId?: number | null
+  fileId: string
   categoryId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -802,9 +802,9 @@ export type AssetUpdateManyWithWhereWithoutReviewInput = {
 export type AssetCreateManyProductInput = {
   id?: number
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
+  fileId: string
   reviewId?: number | null
   categoryId?: number | null
   createdAt?: Date | string
@@ -813,21 +813,21 @@ export type AssetCreateManyProductInput = {
 
 export type AssetUpdateWithoutProductInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  review?: Prisma.ReviewUpdateOneWithoutAssetsNestedInput
   category?: Prisma.CategoryUpdateOneWithoutImageNestedInput
+  review?: Prisma.ReviewUpdateOneWithoutAssetsNestedInput
 }
 
 export type AssetUncheckedUpdateWithoutProductInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -837,9 +837,9 @@ export type AssetUncheckedUpdateWithoutProductInput = {
 export type AssetUncheckedUpdateManyWithoutProductInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -848,11 +848,11 @@ export type AssetUncheckedUpdateManyWithoutProductInput = {
 
 export type AssetCreateManyReviewInput = {
   id?: number
+  productId?: number | null
   url: string
-  fileId: string
   type: $Enums.AssetType
   altText?: string | null
-  productId?: number | null
+  fileId: string
   categoryId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -860,22 +860,22 @@ export type AssetCreateManyReviewInput = {
 
 export type AssetUpdateWithoutReviewInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  product?: Prisma.ProductUpdateOneWithoutAssetsNestedInput
   category?: Prisma.CategoryUpdateOneWithoutImageNestedInput
+  product?: Prisma.ProductUpdateOneWithoutAssetsNestedInput
 }
 
 export type AssetUncheckedUpdateWithoutReviewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -883,11 +883,11 @@ export type AssetUncheckedUpdateWithoutReviewInput = {
 
 export type AssetUncheckedUpdateManyWithoutReviewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileId?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -897,96 +897,96 @@ export type AssetUncheckedUpdateManyWithoutReviewInput = {
 
 export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  productId?: boolean
   url?: boolean
-  fileId?: boolean
   type?: boolean
   altText?: boolean
-  productId?: boolean
+  fileId?: boolean
   reviewId?: boolean
   categoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
   product?: boolean | Prisma.Asset$productArgs<ExtArgs>
   review?: boolean | Prisma.Asset$reviewArgs<ExtArgs>
-  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
 }, ExtArgs["result"]["asset"]>
 
 export type AssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  productId?: boolean
   url?: boolean
-  fileId?: boolean
   type?: boolean
   altText?: boolean
-  productId?: boolean
+  fileId?: boolean
   reviewId?: boolean
   categoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
   product?: boolean | Prisma.Asset$productArgs<ExtArgs>
   review?: boolean | Prisma.Asset$reviewArgs<ExtArgs>
-  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
 }, ExtArgs["result"]["asset"]>
 
 export type AssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  productId?: boolean
   url?: boolean
-  fileId?: boolean
   type?: boolean
   altText?: boolean
-  productId?: boolean
+  fileId?: boolean
   reviewId?: boolean
   categoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
   product?: boolean | Prisma.Asset$productArgs<ExtArgs>
   review?: boolean | Prisma.Asset$reviewArgs<ExtArgs>
-  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
 }, ExtArgs["result"]["asset"]>
 
 export type AssetSelectScalar = {
   id?: boolean
+  productId?: boolean
   url?: boolean
-  fileId?: boolean
   type?: boolean
   altText?: boolean
-  productId?: boolean
+  fileId?: boolean
   reviewId?: boolean
   categoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "fileId" | "type" | "altText" | "productId" | "reviewId" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
+export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "url" | "type" | "altText" | "fileId" | "reviewId" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
 export type AssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
   product?: boolean | Prisma.Asset$productArgs<ExtArgs>
   review?: boolean | Prisma.Asset$reviewArgs<ExtArgs>
-  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
 }
 export type AssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
   product?: boolean | Prisma.Asset$productArgs<ExtArgs>
   review?: boolean | Prisma.Asset$reviewArgs<ExtArgs>
-  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
 }
 export type AssetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
   product?: boolean | Prisma.Asset$productArgs<ExtArgs>
   review?: boolean | Prisma.Asset$reviewArgs<ExtArgs>
-  category?: boolean | Prisma.Asset$categoryArgs<ExtArgs>
 }
 
 export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Asset"
   objects: {
+    category: Prisma.$CategoryPayload<ExtArgs> | null
     product: Prisma.$ProductPayload<ExtArgs> | null
     review: Prisma.$ReviewPayload<ExtArgs> | null
-    category: Prisma.$CategoryPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    productId: number | null
     url: string
-    fileId: string
     type: $Enums.AssetType
     altText: string | null
-    productId: number | null
+    fileId: string
     reviewId: number | null
     categoryId: number | null
     createdAt: Date
@@ -1385,9 +1385,9 @@ readonly fields: AssetFieldRefs;
  */
 export interface Prisma__AssetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  category<T extends Prisma.Asset$categoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$categoryArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   product<T extends Prisma.Asset$productArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$productArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   review<T extends Prisma.Asset$reviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$reviewArgs<ExtArgs>>): Prisma.Prisma__ReviewClient<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  category<T extends Prisma.Asset$categoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$categoryArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1418,11 +1418,11 @@ export interface Prisma__AssetClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface AssetFieldRefs {
   readonly id: Prisma.FieldRef<"Asset", 'Int'>
+  readonly productId: Prisma.FieldRef<"Asset", 'Int'>
   readonly url: Prisma.FieldRef<"Asset", 'String'>
-  readonly fileId: Prisma.FieldRef<"Asset", 'String'>
   readonly type: Prisma.FieldRef<"Asset", 'AssetType'>
   readonly altText: Prisma.FieldRef<"Asset", 'String'>
-  readonly productId: Prisma.FieldRef<"Asset", 'Int'>
+  readonly fileId: Prisma.FieldRef<"Asset", 'String'>
   readonly reviewId: Prisma.FieldRef<"Asset", 'Int'>
   readonly categoryId: Prisma.FieldRef<"Asset", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Asset", 'DateTime'>
@@ -1623,11 +1623,6 @@ export type AssetFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Skip the first `n` Assets.
    */
   skip?: number
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-   * 
-   * Filter by unique combinations of Assets.
-   */
   distinct?: Prisma.AssetScalarFieldEnum | Prisma.AssetScalarFieldEnum[]
 }
 
@@ -1828,6 +1823,25 @@ export type AssetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Asset.category
+ */
+export type Asset$categoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Category
+   */
+  select?: Prisma.CategorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Category
+   */
+  omit?: Prisma.CategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoryInclude<ExtArgs> | null
+  where?: Prisma.CategoryWhereInput
+}
+
+/**
  * Asset.product
  */
 export type Asset$productArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1863,25 +1877,6 @@ export type Asset$reviewArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   include?: Prisma.ReviewInclude<ExtArgs> | null
   where?: Prisma.ReviewWhereInput
-}
-
-/**
- * Asset.category
- */
-export type Asset$categoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Category
-   */
-  select?: Prisma.CategorySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Category
-   */
-  omit?: Prisma.CategoryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CategoryInclude<ExtArgs> | null
-  where?: Prisma.CategoryWhereInput
 }
 
 /**

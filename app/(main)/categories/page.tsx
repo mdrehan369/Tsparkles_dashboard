@@ -35,7 +35,7 @@ export default function CategoriesPage() {
         queryFn: () => fetchAllCategories(1, 15, ''),
     });
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: addCategory,
         mutationKey: categoryKeys.ADD_NEW_CATEGORY,
         onSuccess: () => {
@@ -129,7 +129,7 @@ export default function CategoriesPage() {
                             />
                         </div>
                         <FileUpload files={files} setFiles={setFiles} multiple={false} />
-                        <Button type='submit' className='gap-2'>
+                        <Button type='submit' className='gap-2' disabled={isPending}>
                             <Plus size={16} />
                             Add Category
                         </Button>

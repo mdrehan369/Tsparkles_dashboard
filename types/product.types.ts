@@ -1,5 +1,5 @@
-import { Prisma } from '@/lib/generated/prisma/client';
-import { AssetType } from '@/lib/generated/prisma/enums';
+import { Prisma, ProductColor } from '@/lib/generated/prisma/client';
+import { AssetType, ProductSizeUnit } from '@/lib/generated/prisma/enums';
 
 export type UploadFile = {
     type: AssetType;
@@ -7,14 +7,27 @@ export type UploadFile = {
     url: string;
 };
 
+export type ProductVariant = {
+    price: number;
+    comparePrice: number;
+    size: number;
+    unit: ProductSizeUnit;
+    weight: number;
+};
+
+export type Color = {
+    label: string;
+    color: string;
+};
+
 export type AddProductParams = {
     title: string;
     details: string;
-    price: number;
-    comparePrice: number;
     files: UploadFile[];
     categoryId: number;
     subCategoryId: number;
+    variants: ProductVariant[];
+    colors: Color[];
 };
 
 export type ProductWithAssets = Prisma.ProductGetPayload<{
@@ -28,5 +41,7 @@ export type FullProduct = Prisma.ProductGetPayload<{
         assets: true;
         category: true;
         subCategory: true;
+        ProductColor: true;
+        ProductVariant: true;
     };
 }>;

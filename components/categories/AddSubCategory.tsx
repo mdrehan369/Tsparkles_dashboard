@@ -7,7 +7,7 @@ import { Input } from '../ui/input';
 import { useMutation } from '@tanstack/react-query';
 import { subCategoryKeys } from '@/constants/querykeys';
 import { addSubcategory } from '@/queries/subcategory.queries';
-import { Category } from '@/prisma/generated/prisma/client';
+import { Category } from '@/lib/generated/prisma/client';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 

@@ -196,7 +196,7 @@ export type SubCategoryGroupByOutputType = {
   _max: SubCategoryMaxAggregateOutputType | null
 }
 
-export type GetSubCategoryGroupByPayload<T extends SubCategoryGroupByArgs> = Prisma.PrismaPromise<
+type GetSubCategoryGroupByPayload<T extends SubCategoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SubCategoryGroupByOutputType, T['by']> &
       {
@@ -1278,11 +1278,6 @@ export type SubCategoryFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` SubCategories.
    */
   skip?: number
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-   * 
-   * Filter by unique combinations of SubCategories.
-   */
   distinct?: Prisma.SubCategoryScalarFieldEnum | Prisma.SubCategoryScalarFieldEnum[]
 }
 

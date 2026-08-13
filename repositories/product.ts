@@ -2,28 +2,38 @@ import { prisma } from '@/lib/prisma';
 import { Asset, Category, Prisma, Product } from '@/lib/generated/prisma/client';
 import { AddProductParams } from '@/types/product.types';
 
+// TODO: Remove the updated at thing on next prisma migration
 async function createProduct({
     categoryId,
     details,
-    comparePrice,
     title,
-    price,
     subCategoryId,
     files,
     slug,
+    colors,
+    variants,
 }: AddProductParams & { slug: string }) {
     const newProduct = await prisma.product.create({
         data: {
             title,
             slug,
-            price,
             categoryId,
             subCategoryId,
-            comparePrice,
             details,
+            minPrice: variants.reduce((acc, curr) => Math.min(acc, curr.price), 1000000000),
+            ProductColor: {
+                createMany: {
+                    data: colors.map((c) => ({ ...c, updatedAt: new Date() })),
+                },
+            },
             assets: {
                 createMany: {
                     data: files,
+                },
+            },
+            ProductVariant: {
+                createMany: {
+                    data: variants.map((v) => ({ ...v, updatedAt: new Date() })),
                 },
             },
             updatedAt: new Date(),
@@ -59,6 +69,8 @@ async function getProducts({
             assets: true,
             category: true,
             subCategory: true,
+            ProductVariant: true,
+            ProductColor: true,
         },
         skip: (page - 1) * limit,
         take: limit,
@@ -89,7 +101,7 @@ async function deleteProductById(id: Product['id']) {
 }
 
 async function updateProductRepo(id: Product['id'], updateData: AddProductParams) {
-    const { title, categoryId, price, details, comparePrice, subCategoryId, files } = updateData;
+    const { title, categoryId, details, subCategoryId, files, variants, colors } = updateData;
     const updatedProduct = await prisma.product.update({
         where: {
             id,
@@ -97,8 +109,6 @@ async function updateProductRepo(id: Product['id'], updateData: AddProductParams
         data: {
             title,
             details,
-            price,
-            comparePrice,
             category: {
                 connect: { id: categoryId },
             },
@@ -107,6 +117,18 @@ async function updateProductRepo(id: Product['id'], updateData: AddProductParams
             },
             assets: {
                 createMany: { data: files, skipDuplicates: true },
+            },
+            ProductVariant: {
+                deleteMany: {},
+                createMany: {
+                    data: variants.map((v) => ({ ...v, updatedAt: new Date() })),
+                },
+            },
+            ProductColor: {
+                deleteMany: {},
+                createMany: {
+                    data: colors.map((c) => ({ ...c, updatedAt: new Date() })),
+                },
             },
         },
         include: {

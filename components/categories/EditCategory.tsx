@@ -13,6 +13,7 @@ import uploadAsset from '@/utils/upload';
 import { CategoryWithSubCategory } from '@/types/category.types';
 import deleteAsset from '@/actions/assetManagement';
 import FileUpload from '../products/FileUpload';
+import { updateCategoryRepo } from '@/repositories/category';
 
 interface Props {
     onClose: () => void;
@@ -58,7 +59,7 @@ export default function UpdateCategory({ onClose, isEditing = false, category }:
                 backgroundColor: data.backgroundColor,
                 asset: uploadedAsset,
             };
-            await updateCategory(category!.id, payload);
+            await updateCategoryRepo(category!.id, payload);
 
             toast.dismiss();
             toast.success(

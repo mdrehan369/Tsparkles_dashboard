@@ -41,6 +41,9 @@ export type AccountMinAggregateOutputType = {
   phoneNumber: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  imageUrl: string | null
+  name: string | null
+  oAuthProvider: $Enums.OAuthProvider | null
 }
 
 export type AccountMaxAggregateOutputType = {
@@ -50,6 +53,9 @@ export type AccountMaxAggregateOutputType = {
   phoneNumber: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  imageUrl: string | null
+  name: string | null
+  oAuthProvider: $Enums.OAuthProvider | null
 }
 
 export type AccountCountAggregateOutputType = {
@@ -59,6 +65,9 @@ export type AccountCountAggregateOutputType = {
   phoneNumber: number
   createdAt: number
   updatedAt: number
+  imageUrl: number
+  name: number
+  oAuthProvider: number
   _all: number
 }
 
@@ -78,6 +87,9 @@ export type AccountMinAggregateInputType = {
   phoneNumber?: true
   createdAt?: true
   updatedAt?: true
+  imageUrl?: true
+  name?: true
+  oAuthProvider?: true
 }
 
 export type AccountMaxAggregateInputType = {
@@ -87,6 +99,9 @@ export type AccountMaxAggregateInputType = {
   phoneNumber?: true
   createdAt?: true
   updatedAt?: true
+  imageUrl?: true
+  name?: true
+  oAuthProvider?: true
 }
 
 export type AccountCountAggregateInputType = {
@@ -96,6 +111,9 @@ export type AccountCountAggregateInputType = {
   phoneNumber?: true
   createdAt?: true
   updatedAt?: true
+  imageUrl?: true
+  name?: true
+  oAuthProvider?: true
   _all?: true
 }
 
@@ -192,6 +210,9 @@ export type AccountGroupByOutputType = {
   phoneNumber: string | null
   createdAt: Date
   updatedAt: Date
+  imageUrl: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   _count: AccountCountAggregateOutputType | null
   _avg: AccountAvgAggregateOutputType | null
   _sum: AccountSumAggregateOutputType | null
@@ -199,7 +220,7 @@ export type AccountGroupByOutputType = {
   _max: AccountMaxAggregateOutputType | null
 }
 
-export type GetAccountGroupByPayload<T extends AccountGroupByArgs> = Prisma.PrismaPromise<
+type GetAccountGroupByPayload<T extends AccountGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AccountGroupByOutputType, T['by']> &
       {
@@ -224,6 +245,9 @@ export type AccountWhereInput = {
   phoneNumber?: Prisma.StringNullableFilter<"Account"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Account"> | string | null
+  name?: Prisma.StringFilter<"Account"> | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFilter<"Account"> | $Enums.OAuthProvider
   addresses?: Prisma.AddressListRelationFilter
   cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
   orders?: Prisma.OrderListRelationFilter
@@ -237,6 +261,9 @@ export type AccountOrderByWithRelationInput = {
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  name?: Prisma.SortOrder
+  oAuthProvider?: Prisma.SortOrder
   addresses?: Prisma.AddressOrderByRelationAggregateInput
   cart?: Prisma.CartOrderByWithRelationInput
   orders?: Prisma.OrderOrderByRelationAggregateInput
@@ -253,6 +280,9 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   isVerified?: Prisma.BoolFilter<"Account"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Account"> | string | null
+  name?: Prisma.StringFilter<"Account"> | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFilter<"Account"> | $Enums.OAuthProvider
   addresses?: Prisma.AddressListRelationFilter
   cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
   orders?: Prisma.OrderListRelationFilter
@@ -266,6 +296,9 @@ export type AccountOrderByWithAggregationInput = {
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  name?: Prisma.SortOrder
+  oAuthProvider?: Prisma.SortOrder
   _count?: Prisma.AccountCountOrderByAggregateInput
   _avg?: Prisma.AccountAvgOrderByAggregateInput
   _max?: Prisma.AccountMaxOrderByAggregateInput
@@ -283,6 +316,9 @@ export type AccountScalarWhereWithAggregatesInput = {
   phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  name?: Prisma.StringWithAggregatesFilter<"Account"> | string
+  oAuthProvider?: Prisma.EnumOAuthProviderWithAggregatesFilter<"Account"> | $Enums.OAuthProvider
 }
 
 export type AccountCreateInput = {
@@ -291,6 +327,9 @@ export type AccountCreateInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   addresses?: Prisma.AddressCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderCreateNestedManyWithoutAccountInput
@@ -304,6 +343,9 @@ export type AccountUncheckedCreateInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutAccountInput
@@ -316,6 +358,9 @@ export type AccountUpdateInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   addresses?: Prisma.AddressUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUpdateManyWithoutAccountNestedInput
@@ -329,6 +374,9 @@ export type AccountUncheckedUpdateInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutAccountNestedInput
@@ -342,6 +390,9 @@ export type AccountCreateManyInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
 }
 
 export type AccountUpdateManyMutationInput = {
@@ -350,6 +401,9 @@ export type AccountUpdateManyMutationInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
 }
 
 export type AccountUncheckedUpdateManyInput = {
@@ -359,6 +413,9 @@ export type AccountUncheckedUpdateManyInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
 }
 
 export type AccountCountOrderByAggregateInput = {
@@ -368,6 +425,9 @@ export type AccountCountOrderByAggregateInput = {
   phoneNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  oAuthProvider?: Prisma.SortOrder
 }
 
 export type AccountAvgOrderByAggregateInput = {
@@ -381,6 +441,9 @@ export type AccountMaxOrderByAggregateInput = {
   phoneNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  oAuthProvider?: Prisma.SortOrder
 }
 
 export type AccountMinOrderByAggregateInput = {
@@ -390,6 +453,9 @@ export type AccountMinOrderByAggregateInput = {
   phoneNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  oAuthProvider?: Prisma.SortOrder
 }
 
 export type AccountSumOrderByAggregateInput = {
@@ -415,6 +481,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type EnumOAuthProviderFieldUpdateOperationsInput = {
+  set?: $Enums.OAuthProvider
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -487,6 +557,9 @@ export type AccountCreateWithoutCartInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   addresses?: Prisma.AddressCreateNestedManyWithoutAccountInput
   orders?: Prisma.OrderCreateNestedManyWithoutAccountInput
   wishlists?: Prisma.WishlistCreateNestedManyWithoutUserInput
@@ -499,6 +572,9 @@ export type AccountUncheckedCreateWithoutCartInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAccountInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutAccountInput
   wishlists?: Prisma.WishlistUncheckedCreateNestedManyWithoutUserInput
@@ -526,6 +602,9 @@ export type AccountUpdateWithoutCartInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   addresses?: Prisma.AddressUpdateManyWithoutAccountNestedInput
   orders?: Prisma.OrderUpdateManyWithoutAccountNestedInput
   wishlists?: Prisma.WishlistUpdateManyWithoutUserNestedInput
@@ -538,6 +617,9 @@ export type AccountUncheckedUpdateWithoutCartInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAccountNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutAccountNestedInput
   wishlists?: Prisma.WishlistUncheckedUpdateManyWithoutUserNestedInput
@@ -549,6 +631,9 @@ export type AccountCreateWithoutOrdersInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   addresses?: Prisma.AddressCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartCreateNestedOneWithoutAccountInput
   wishlists?: Prisma.WishlistCreateNestedManyWithoutUserInput
@@ -561,6 +646,9 @@ export type AccountUncheckedCreateWithoutOrdersInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutAccountInput
   wishlists?: Prisma.WishlistUncheckedCreateNestedManyWithoutUserInput
@@ -588,6 +676,9 @@ export type AccountUpdateWithoutOrdersInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   addresses?: Prisma.AddressUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUpdateOneWithoutAccountNestedInput
   wishlists?: Prisma.WishlistUpdateManyWithoutUserNestedInput
@@ -600,6 +691,9 @@ export type AccountUncheckedUpdateWithoutOrdersInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutAccountNestedInput
   wishlists?: Prisma.WishlistUncheckedUpdateManyWithoutUserNestedInput
@@ -611,6 +705,9 @@ export type AccountCreateWithoutAddressesInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   cart?: Prisma.CartCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderCreateNestedManyWithoutAccountInput
   wishlists?: Prisma.WishlistCreateNestedManyWithoutUserInput
@@ -623,6 +720,9 @@ export type AccountUncheckedCreateWithoutAddressesInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutAccountInput
   wishlists?: Prisma.WishlistUncheckedCreateNestedManyWithoutUserInput
@@ -650,6 +750,9 @@ export type AccountUpdateWithoutAddressesInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   cart?: Prisma.CartUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUpdateManyWithoutAccountNestedInput
   wishlists?: Prisma.WishlistUpdateManyWithoutUserNestedInput
@@ -662,6 +765,9 @@ export type AccountUncheckedUpdateWithoutAddressesInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   cart?: Prisma.CartUncheckedUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutAccountNestedInput
   wishlists?: Prisma.WishlistUncheckedUpdateManyWithoutUserNestedInput
@@ -673,6 +779,9 @@ export type AccountCreateWithoutWishlistsInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   addresses?: Prisma.AddressCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderCreateNestedManyWithoutAccountInput
@@ -685,6 +794,9 @@ export type AccountUncheckedCreateWithoutWishlistsInput = {
   phoneNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  name: string
+  oAuthProvider: $Enums.OAuthProvider
   addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutAccountInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutAccountInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutAccountInput
@@ -712,6 +824,9 @@ export type AccountUpdateWithoutWishlistsInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   addresses?: Prisma.AddressUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUpdateManyWithoutAccountNestedInput
@@ -724,6 +839,9 @@ export type AccountUncheckedUpdateWithoutWishlistsInput = {
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  oAuthProvider?: Prisma.EnumOAuthProviderFieldUpdateOperationsInput | $Enums.OAuthProvider
   addresses?: Prisma.AddressUncheckedUpdateManyWithoutAccountNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutAccountNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutAccountNestedInput
@@ -785,6 +903,9 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   phoneNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
+  name?: boolean
+  oAuthProvider?: boolean
   addresses?: boolean | Prisma.Account$addressesArgs<ExtArgs>
   cart?: boolean | Prisma.Account$cartArgs<ExtArgs>
   orders?: boolean | Prisma.Account$ordersArgs<ExtArgs>
@@ -799,6 +920,9 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   phoneNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
+  name?: boolean
+  oAuthProvider?: boolean
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -808,6 +932,9 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   phoneNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
+  name?: boolean
+  oAuthProvider?: boolean
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectScalar = {
@@ -817,9 +944,12 @@ export type AccountSelectScalar = {
   phoneNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
+  name?: boolean
+  oAuthProvider?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isVerified" | "email" | "phoneNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "isVerified" | "email" | "phoneNumber" | "createdAt" | "updatedAt" | "imageUrl" | "name" | "oAuthProvider", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   addresses?: boolean | Prisma.Account$addressesArgs<ExtArgs>
   cart?: boolean | Prisma.Account$cartArgs<ExtArgs>
@@ -845,6 +975,9 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     phoneNumber: string | null
     createdAt: Date
     updatedAt: Date
+    imageUrl: string | null
+    name: string
+    oAuthProvider: $Enums.OAuthProvider
   }, ExtArgs["result"]["account"]>
   composites: {}
 }
@@ -1278,6 +1411,9 @@ export interface AccountFieldRefs {
   readonly phoneNumber: Prisma.FieldRef<"Account", 'String'>
   readonly createdAt: Prisma.FieldRef<"Account", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly imageUrl: Prisma.FieldRef<"Account", 'String'>
+  readonly name: Prisma.FieldRef<"Account", 'String'>
+  readonly oAuthProvider: Prisma.FieldRef<"Account", 'OAuthProvider'>
 }
     
 
@@ -1474,11 +1610,6 @@ export type AccountFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` Accounts.
    */
   skip?: number
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-   * 
-   * Filter by unique combinations of Accounts.
-   */
   distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
 }
 

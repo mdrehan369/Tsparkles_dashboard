@@ -102,11 +102,7 @@ export default function ProductsTable() {
                                 <td className='py-3 px-4 text-foreground'>
                                     <div className='flex flex-col'>
                                         <span className='font-medium'>
-                                            ${product.price.toFixed(2)}
-                                        </span>
-
-                                        <span className='text-xs text-destructive line-through'>
-                                            ${product.comparePrice!.toFixed(2)}
+                                            Rs. {product.minPrice.toFixed(2)}
                                         </span>
                                     </div>
                                 </td>

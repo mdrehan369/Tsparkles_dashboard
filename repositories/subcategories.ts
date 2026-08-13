@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { Category, SubCategory } from '@/prisma/generated/prisma/client';
+import { Category, SubCategory } from '@/lib/generated/prisma/client';
 
 export async function doesSubcategoriesExists(subcategories: string[]) {
     const subcategoryCount = await prisma.subCategory.count({
