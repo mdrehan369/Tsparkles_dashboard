@@ -43,3 +43,7 @@ Thumbs.db
 
 /lib/generated
 /prisma
+*.tsbuildinfo
+.neon
+.agents/
+skills-lock.json

@@ -139,22 +139,44 @@ model OrderItem {
 }
 
 model Order {
-    id              Int           @id @default(autoincrement())
-    orderNumber     String        @unique
+    id              Int         @id @default(autoincrement())
+    orderNumber     String      @unique
     accountId       Int
     email           String
     phoneNumber     String?
     totalAmount     Float
-    currency        String        @default("INR")
-    status          OrderStatus   @default(PENDING)
-    paymentStatus   PaymentStatus @default(PENDING)
+    status          OrderStatus @default(PENDING)
     shippingAddress Json
     billingAddress  Json?
-    createdAt       DateTime      @default(now())
-    updatedAt       DateTime      @updatedAt
+    createdAt       DateTime    @default(now())
+    updatedAt       DateTime    @updatedAt
     slug            String
-    account         Account       @relation(fields: [accountId], references: [id])
-    items           OrderItem[]
+
+    account  Account     @relation(fields: [accountId], references: [id])
+    items    OrderItem[]
+    payments Payment[]
+}
+
+model Payment {
+    id      Int @id @default(autoincrement())
+    orderId Int
+
+    gateway_payment_id String?
+    gateway_order_id   String?
+    gateway_signature  String?
+
+    paymentProvider PaymentProvider
+    paymentStatus   PaymentStatus   @default(PENDING)
+    currency        String          @default("INR")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    order Order @relation(fields: [orderId], references: [id])
+
+    @@index([orderId])
+    @@index([gateway_order_id])
+    @@index([gateway_payment_id])
 }
 
 model Address {
@@ -225,6 +247,11 @@ enum OrderStatus {
     DELIVERED
     CANCELLED
     RETURNED
+}
+
+enum PaymentProvider {
+    RAZORPAY
+    PHONEPE
 }
 
 enum PaymentStatus {
