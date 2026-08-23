@@ -21,6 +21,7 @@ model Account {
     cart          Cart?
     orders        Order[]
     wishlists     Wishlist[]
+    couponUsages  CouponUsage[]
 }
 
 model Asset {
@@ -34,7 +35,6 @@ model Asset {
     categoryId Int?      @unique
     createdAt  DateTime  @default(now())
     updatedAt  DateTime  @updatedAt
-    category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     product    Product?  @relation(fields: [productId], references: [id], onDelete: Cascade)
     review     Review?   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
 }
@@ -62,14 +62,12 @@ model CartItem {
 }
 
 model Category {
-    id              Int           @id @default(autoincrement())
-    name            String        @unique
-    createdAt       DateTime      @default(now())
-    updatedAt       DateTime      @updatedAt
-    backgroundColor String
-    image           Asset?
-    product         Product[]
-    subCategory     SubCategory[]
+    id          Int           @id @default(autoincrement())
+    name        String        @unique
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @updatedAt
+    product     Product[]
+    subCategory SubCategory[]
 }
 
 model Product {
@@ -152,9 +150,10 @@ model Order {
     updatedAt       DateTime    @updatedAt
     slug            String
 
-    account  Account     @relation(fields: [accountId], references: [id])
-    items    OrderItem[]
-    payments Payment[]
+    account     Account      @relation(fields: [accountId], references: [id])
+    items       OrderItem[]
+    payments    Payment[]
+    couponUsage CouponUsage?
 }
 
 model Payment {
@@ -233,6 +232,61 @@ model ProductVariant {
     weight       Int             @default(100)
     CartItem     CartItem[]
     Product      Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Coupon {
+    id          Int     @id @default(autoincrement())
+    code        String  @unique
+    description String?
+
+    discountType  CouponDiscountType
+    discountValue Float
+
+    minimumOrderAmount Float?
+    maximumDiscount    Float?
+
+    usageLimit Int?
+    usedCount  Int  @default(0)
+
+    perUserLimit Int @default(1)
+
+    startsAt  DateTime
+    expiresAt DateTime
+
+    isActive Boolean @default(true)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    usages CouponUsage[]
+
+    @@index([code])
+    @@index([isActive])
+    @@index([expiresAt])
+}
+
+model CouponUsage {
+    id Int @id @default(autoincrement())
+
+    couponId  Int
+    accountId Int
+    orderId   Int @unique
+
+    discountAmount Float
+
+    createdAt DateTime @default(now())
+
+    coupon  Coupon  @relation(fields: [couponId], references: [id])
+    account Account @relation(fields: [accountId], references: [id])
+    order   Order   @relation(fields: [orderId], references: [id])
+
+    @@unique([couponId, orderId])
+    @@index([couponId, accountId])
+}
+
+enum CouponDiscountType {
+    PERCENTAGE
+    FIXED
 }
 
 enum AssetType {

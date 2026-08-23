@@ -1,15 +1,15 @@
 import { prisma } from '@/lib/prisma';
-import { AssetType, Category, Prisma } from '@/lib/generated/prisma/client';
+import { Category, Prisma } from '@/lib/generated/prisma/client';
 import { UpdateCategorySchemaType } from '@/zod/category';
-import { ImageSchemaType } from '@/zod/common';
 
-export async function doesCategoryExists(name: string) {
+export async function doesCategoryExists(name: string, excludeId?: Category['id']) {
     const categoryCount = await prisma.category.count({
         where: {
             name: {
                 equals: name,
                 mode: 'insensitive',
             },
+            ...(excludeId !== undefined && { id: { not: excludeId } }),
         },
     });
 
@@ -17,21 +17,12 @@ export async function doesCategoryExists(name: string) {
     return false;
 }
 
-export async function createCategory(
-    name: string,
-    backgroundColor: string,
-    subcategories: string[],
-    image?: { url: string; fileId: string; type: AssetType }
-) {
+export async function createCategory(name: string, subcategories: string[]) {
     const category = await prisma.category.create({
         data: {
             name,
-            backgroundColor,
             subCategory: {
                 create: subcategories.map((val) => ({ name: val })),
-            },
-            image: {
-                create: image,
             },
         },
     });
@@ -55,7 +46,6 @@ export async function getCategories(page: number = 1, limit: number = 15, search
                     },
                 },
             },
-            image: true,
         },
         orderBy: {
             createdAt: 'desc',
@@ -81,7 +71,7 @@ export async function getCategoryByIdRepo(
 ) {
     const category = await tx.category.findFirst({
         where: { id },
-        include: { subCategory: true, image: true },
+        include: { subCategory: true },
     });
 
     return category;
@@ -105,29 +95,6 @@ export async function updateCategoryRepo(
         where: { id },
         data: {
             name: payload.name,
-            backgroundColor: payload.backgroundColor,
-        },
-    });
-
-    return updatedCategory;
-}
-
-export async function updateCategoryImageRepo(
-    id: Category['id'],
-    image: ImageSchemaType,
-    tx: Prisma.TransactionClient = prisma
-) {
-    const updatedCategory = await tx.category.update({
-        where: { id },
-        data: {
-            image: {
-                upsert: {
-                    create: image,
-                    update: {
-                        ...image,
-                    },
-                },
-            },
         },
     });
 

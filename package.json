@@ -7,7 +7,9 @@
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start",
-    "db:generate": "prisma generate"
+    "check": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -76,6 +78,7 @@
     "@types/pg": "^8.15.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "husky": "^9.1.7",
     "postcss": "^8.5",
     "prisma": "^7.4.1",
     "tailwindcss": "^4.1.9",

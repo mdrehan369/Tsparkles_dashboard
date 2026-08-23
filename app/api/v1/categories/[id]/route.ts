@@ -1,9 +1,7 @@
 import { STATUS_CODES } from '@/constants/status_codes';
-import { Category } from '@/lib/generated/prisma/client';
 import {
     doesCategoryExists,
     getCategoryByIdRepo,
-    updateCategoryImageRepo,
     updateCategoryRepo,
 } from '@/repositories/category';
 import asyncHandler from '@/utils/asyncHandler';
@@ -12,15 +10,16 @@ import { UpdateCategorySchema } from '@/zod/category';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PATCH = asyncHandler(
-    async (request: NextRequest, { params }: { params: Promise<{ id: Category['id'] }> }) => {
+    async (request: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
         return await txHandler(async (tx) => {
             const body = await request.json();
             const parsedBody = UpdateCategorySchema.parse(body);
 
             const { id } = await params;
-            const { name, image, backgroundColor } = parsedBody;
+            const categoryId = Number(id);
+            const { name } = parsedBody;
 
-            const category = await getCategoryByIdRepo(id, tx);
+            const category = await getCategoryByIdRepo(categoryId, tx);
             if (!category)
                 return NextResponse.json(
                     { success: false, message: 'No category found!', data: null },
@@ -28,8 +27,8 @@ export const PATCH = asyncHandler(
                 );
 
             if (name) {
-                const categoryWithName = await doesCategoryExists(name);
-                if (categoryWithName)
+                const nameTaken = await doesCategoryExists(name, categoryId);
+                if (nameTaken)
                     return NextResponse.json(
                         {
                             success: false,
@@ -40,11 +39,9 @@ export const PATCH = asyncHandler(
                     );
             }
 
-            await updateCategoryRepo(id, { name, backgroundColor }, tx);
+            await updateCategoryRepo(categoryId, { name }, tx);
 
-            if (image) await updateCategoryImageRepo(id, image, tx);
-
-            const updatedCategory = await getCategoryByIdRepo(id, tx);
+            const updatedCategory = await getCategoryByIdRepo(categoryId, tx);
 
             return NextResponse.json({
                 success: true,
