@@ -12,3 +12,8 @@ export const subCategoryKeys = {
 export const productKeys = {
     GET_ALL_PRODUCTS: ['GET_ALL_PRODUCTS'],
 };
+
+export const orderKeys = {
+    GET_ORDERS: ['GET_ORDERS'],
+    ORDER_STATUS_COUNTS: ['ORDER_STATUS_COUNTS'],
+};

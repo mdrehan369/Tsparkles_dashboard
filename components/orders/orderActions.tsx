@@ -1,39 +1,68 @@
+'use client';
+
+import Link from 'next/link';
+import { MoreHorizontal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuPortal,
+    DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
-import { DotSquare } from 'lucide-react';
+} from '@/components/ui/dropdown-menu';
+import { OrderStatus } from '@/lib/generated/prisma/enums';
+import { updateOrderStatus } from '@/actions/orders';
+import { useRouter } from 'next/navigation';
 
-function OrderActions({ orderId }: { orderId: number }) {
+function OrderActions({ orderId, status }: { orderId: number; status: OrderStatus }) {
+    const router = useRouter();
+    const handleOrderUpdate = async () => {
+        const newStatus =
+            status == OrderStatus.PENDING ? OrderStatus.SHIPPED : OrderStatus.DELIVERED;
+        await updateOrderStatus(orderId, newStatus);
+        router.refresh();
+    };
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className='p-2 rounded-md hover:bg-gray-100'>
-                    <DotSquare />
-                </button>
+                <Button
+                    variant='ghost'
+                    size='icon'
+                    className='size-8 text-muted-foreground hover:text-foreground cursor-pointer'
+                >
+                    <MoreHorizontal size={16} />
+                    <span className='sr-only'>Order actions</span>
+                </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuPortal>
-                <DropdownMenuContent
-                    className='bg-white rounded-lg shadow-md border p-2 text-sm'
-                    sideOffset={5}
-                >
-                    <DropdownMenuItem className='px-3 py-2 rounded-md hover:bg-gray-100 cursor-pointer'>
+            <DropdownMenuContent align='end' sideOffset={5} className='w-44'>
+                <DropdownMenuItem asChild>
+                    <Link href={`/orders/${orderId}`} className='cursor-pointer font-light'>
                         View Details
-                    </DropdownMenuItem>
+                    </Link>
+                </DropdownMenuItem>
 
-                    <DropdownMenuItem className='px-3 py-2 rounded-md hover:bg-gray-100 cursor-pointer'>
-                        Mark as Shipped
-                    </DropdownMenuItem>
+                <DropdownMenuItem
+                    className='cursor-pointer font-light'
+                    onClick={() => handleOrderUpdate()}
+                >
+                    {status == OrderStatus.PENDING
+                        ? 'Mark as Shipped'
+                        : status == OrderStatus.SHIPPED
+                          ? 'Mark as Delivered'
+                          : 'Already Delivered!'}
+                </DropdownMenuItem>
 
-                    <DropdownMenuItem className='px-3 py-2 rounded-md hover:bg-gray-100 cursor-pointer text-red-600'>
-                        Cancel Order
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenuPortal>
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem
+                    className='cursor-pointer font-light text-destructive focus:text-destructive'
+                    variant='destructive'
+                >
+                    Cancel Order
+                </DropdownMenuItem>
+            </DropdownMenuContent>
         </DropdownMenu>
     );
 }

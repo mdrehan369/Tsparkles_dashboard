@@ -1,15 +1,30 @@
 import { PaymentStatus } from '@/lib/generated/prisma/enums';
 
-function PaymentBadge({ status }: { status: PaymentStatus }) {
-    const styles: Record<PaymentStatus, string> = {
-        PENDING: 'bg-yellow-100 text-yellow-700',
-        PAID: 'bg-green-100 text-green-700',
-        FAILED: 'bg-red-100 text-red-700',
-        REFUNDED: 'bg-purple-100 text-purple-700',
-    };
+const styles: Record<PaymentStatus, { badge: string; dot: string }> = {
+    PENDING: {
+        badge: 'border-border text-muted-foreground',
+        dot: 'bg-muted-foreground/40',
+    },
+    PAID: {
+        badge: 'border-transparent bg-primary text-primary-foreground',
+        dot: 'bg-primary-foreground',
+    },
+    FAILED: {
+        badge: 'border-border text-muted-foreground',
+        dot: 'border border-muted-foreground/50',
+    },
+    REFUNDED: {
+        badge: 'border-foreground/20 bg-foreground/5 text-foreground',
+        dot: 'bg-foreground/50',
+    },
+};
 
+function PaymentBadge({ status }: { status: PaymentStatus }) {
     return (
-        <span className={`px-3 py-1 rounded-full text-xs font-medium ${styles[status]}`}>
+        <span
+            className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-light tracking-widest uppercase ${styles[status].badge}`}
+        >
+            <span className={`size-1.5 rounded-full ${styles[status].dot}`} />
             {status}
         </span>
     );

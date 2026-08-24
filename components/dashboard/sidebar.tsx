@@ -37,7 +37,12 @@ export function Sidebar() {
                     href='/categories'
                     active={pathname === '/categories'}
                 />
-                <NavItem icon={<ShoppingCart size={18} />} label='Orders' href='#' />
+                <NavItem
+                    icon={<ShoppingCart size={18} />}
+                    label='Orders'
+                    href='/orders'
+                    active={pathname === '/orders'}
+                />
                 <NavItem icon={<Users size={18} />} label='Customers' href='#' />
             </nav>
 

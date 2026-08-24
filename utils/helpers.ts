@@ -7,4 +7,12 @@ function generateRandomString(length = 8) {
     return result;
 }
 
-export { generateRandomString };
+function formatCurrency(amount: number, currency: string = 'INR') {
+    return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency,
+        maximumFractionDigits: 2,
+    }).format(amount);
+}
+
+export { generateRandomString, formatCurrency };
