@@ -8,11 +8,11 @@ export async function GET(req: NextRequest) {
     const limit = Number(queryParams.get('limit')) || 15;
     const search = queryParams.get('search') || '';
 
-    const products = await getProducts({ page, limit, search });
+    const data = await getProducts({ page, limit, search });
 
     return NextResponse.json({
         success: true,
         message: 'Fetched',
-        data: products,
+        data,
     });
 }

@@ -1,14 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import {
-    ChevronLeft,
-    ChevronRight,
-    LoaderCircle,
-    PackageOpen,
-    Search,
-    SearchX,
-} from 'lucide-react';
+import { ChevronRight, LoaderCircle, PackageOpen, Search, SearchX } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
     Table,
@@ -19,7 +12,6 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import OrderActions from '@/components/orders/orderActions';
 import OrderBadge from '@/components/orders/orderBadge';
@@ -28,6 +20,8 @@ import { PaymentStatus } from '@/lib/generated/prisma/client';
 import { formatCurrency } from '@/utils/helpers';
 import type { OrderWithRelations } from '@/types/order.types';
 import useOrdersTable, { FILTERS, StatusFilter } from '@/hooks/use-orders-table';
+import Pagination from '../common/Pagination';
+import SearchBar from '../common/SearchBar';
 
 function latestPaymentStatus(order: OrderWithRelations): PaymentStatus {
     const sorted = [...order.payments].sort(
@@ -36,25 +30,12 @@ function latestPaymentStatus(order: OrderWithRelations): PaymentStatus {
     return sorted[0]?.paymentStatus ?? 'PENDING';
 }
 
-function getPageWindow(current: number, total: number, size: number = 5): number[] {
-    const start = Math.max(1, Math.min(current - Math.floor(size / 2), total - size + 1));
-    const end = Math.min(total, start + size - 1);
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) pages.push(i);
-    return pages;
-}
-
 export function OrdersTable() {
     const router = useRouter();
 
     const {
         isFetching,
         isPending,
-        rangeEnd,
-        rangeStart,
-        currentPage,
-        totalEntries,
-        totalPages,
         orders,
         counts,
         filter,
@@ -63,6 +44,8 @@ export function OrdersTable() {
         setPage,
         setFilter,
         query,
+        page,
+        pageSize,
     } = useOrdersTable();
     return (
         <Card className='border-sidebar-border gap-0'>
@@ -96,27 +79,14 @@ export function OrdersTable() {
                         </TabsList>
                     </div>
 
-                    <div className='relative w-full sm:w-64 shrink-0'>
-                        <Search
-                            size={14}
-                            className='absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none'
-                        />
-                        <Input
-                            placeholder='Search orders or products'
-                            value={query}
-                            onChange={(e) => {
-                                setQuery(e.target.value);
-                                setPage(1);
-                            }}
-                            className='pl-8 pr-8 h-8 font-light text-sm bg-transparent'
-                        />
-                        {isFetching && (
-                            <LoaderCircle
-                                size={14}
-                                className='absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground animate-spin'
-                            />
-                        )}
-                    </div>
+                    <SearchBar
+                        onChange={(e) => {
+                            setQuery(e.target.value);
+                            setPage(1);
+                        }}
+                        query={query}
+                        isFetching={isFetching}
+                    />
                 </div>
 
                 <CardContent className='p-0'>
@@ -124,7 +94,7 @@ export function OrdersTable() {
                         <p className='py-16 text-center text-sm font-light text-muted-foreground'>
                             Loading...
                         </p>
-                    ) : totalEntries === 0 ? (
+                    ) : orders.length === 0 ? (
                         <div className='flex flex-col items-center justify-center gap-2 py-16 text-muted-foreground'>
                             {trimmedQuery ? (
                                 <SearchX size={28} strokeWidth={1.5} />
@@ -226,52 +196,12 @@ export function OrdersTable() {
                                     ))}
                                 </TableBody>
                             </Table>
-
-                            <div className='flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-sidebar-border px-6 py-3'>
-                                <p className='text-xs font-light text-muted-foreground'>
-                                    Showing {rangeStart}–{rangeEnd} of {totalEntries} entr
-                                    {totalEntries === 1 ? 'y' : 'ies'}
-                                </p>
-                                {totalPages > 1 && (
-                                    <div className='flex items-center gap-1'>
-                                        <Button
-                                            variant='ghost'
-                                            size='icon'
-                                            className='size-7 rounded-full cursor-pointer'
-                                            disabled={currentPage === 1}
-                                            onClick={() => setPage(currentPage - 1)}
-                                        >
-                                            <ChevronLeft size={14} />
-                                            <span className='sr-only'>Previous page</span>
-                                        </Button>
-                                        {getPageWindow(currentPage, totalPages).map((p) => (
-                                            <Button
-                                                key={p}
-                                                variant='ghost'
-                                                size='icon'
-                                                onClick={() => setPage(p)}
-                                                className={`size-7 rounded-full text-xs tabular-nums cursor-pointer ${
-                                                    p === currentPage
-                                                        ? 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground'
-                                                        : 'text-muted-foreground hover:text-foreground'
-                                                }`}
-                                            >
-                                                {p}
-                                            </Button>
-                                        ))}
-                                        <Button
-                                            variant='ghost'
-                                            size='icon'
-                                            className='size-7 rounded-full cursor-pointer'
-                                            disabled={currentPage === totalPages}
-                                            onClick={() => setPage(currentPage + 1)}
-                                        >
-                                            <ChevronRight size={14} />
-                                            <span className='sr-only'>Next page</span>
-                                        </Button>
-                                    </div>
-                                )}
-                            </div>
+                            <Pagination
+                                setPage={setPage}
+                                page={page}
+                                pageSize={pageSize}
+                                total={orders.length}
+                            />
                         </>
                     )}
                 </CardContent>

@@ -25,3 +25,19 @@ export function getFlatErrorMessages(errors: FieldErrors): string[] {
     extract(errors);
     return messages;
 }
+
+export const getPaginationData = (total: number, pageSize: number, page: number) => {
+    const totalEntries = total;
+    const totalPages = Math.max(1, Math.ceil(totalEntries / pageSize));
+    const currentPage = Math.min(page, totalPages);
+    const rangeStart = totalEntries === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+    const rangeEnd = Math.min(currentPage * pageSize, totalEntries);
+
+    return {
+        totalEntries,
+        currentPage,
+        rangeStart,
+        rangeEnd,
+        totalPages,
+    };
+};

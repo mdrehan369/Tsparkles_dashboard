@@ -53,21 +53,11 @@ export default function useOrdersTable() {
     });
 
     const orders: OrderWithRelations[] = ordersData?.orders ?? [];
-    const totalEntries = ordersData?.total ?? 0;
-    const pageSize = ordersData?.pageSize ?? 4;
-    const totalPages = Math.max(1, Math.ceil(totalEntries / pageSize));
-    const currentPage = Math.min(page, totalPages);
-    const rangeStart = totalEntries === 0 ? 0 : (currentPage - 1) * pageSize + 1;
-    const rangeEnd = Math.min(currentPage * pageSize, totalEntries);
+    const pageSize = ordersData?.pageSize || 10;
 
     return {
         counts,
         orders,
-        totalPages,
-        totalEntries,
-        currentPage,
-        rangeStart,
-        rangeEnd,
         isPending,
         isFetching,
         filter,
@@ -76,5 +66,7 @@ export default function useOrdersTable() {
         setQuery,
         trimmedQuery,
         query,
+        page,
+        pageSize,
     };
 }

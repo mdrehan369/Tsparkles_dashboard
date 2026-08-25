@@ -43,7 +43,7 @@ export function Sidebar() {
                     href='/orders'
                     active={pathname === '/orders'}
                 />
-                <NavItem icon={<Users size={18} />} label='Customers' href='#' />
+                <NavItem icon={<Users size={18} />} label='Customers' href='/customers' active={pathname === '/customers'} />
             </nav>
 
             <div className='border-t border-sidebar-border p-4 space-y-1'>

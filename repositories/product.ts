@@ -63,20 +63,26 @@ async function getProducts({
             mode: 'insensitive',
         };
 
-    const products = await prisma.product.findMany({
-        where: query,
-        include: {
-            assets: true,
-            category: true,
-            subCategory: true,
-            ProductVariant: true,
-            ProductColor: true,
-        },
-        skip: (page - 1) * limit,
-        take: limit,
-    });
+    const [products, count] = await Promise.all([
+        prisma.product.findMany({
+            where: query,
+            include: {
+                assets: true,
+                category: true,
+                subCategory: true,
+                ProductVariant: true,
+                ProductColor: true,
+            },
+            skip: (page - 1) * limit,
+            take: limit,
+        }),
 
-    return products;
+        prisma.product.count({
+            where: query,
+        }),
+    ]);
+
+    return { products, count };
 }
 
 async function getProductById(id: Product['id']) {

@@ -1,156 +1,168 @@
-import { productKeys } from '@/constants/querykeys';
 import { cn } from '@/lib/utils';
-import { fetchAllProducts } from '@/queries/product';
-import { useQuery } from '@tanstack/react-query';
 import { Image } from '@imagekit/next';
 import { Trash2 } from 'lucide-react';
-import { Product } from '@/lib/generated/prisma/client';
 import ConfirmationBox from '../common/ConfirmationBox';
-import { deleteProduct, markProductPublished } from '@/actions/products';
-import toast from 'react-hot-toast';
 import EditProduct from './EditProduct';
-import { FullProduct } from '@/types/product.types';
 import { Switch } from '../ui/switch';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
+import useProductsTable from '@/hooks/use-products-table';
+import Pagination from '../common/Pagination';
+import SearchBar from '../common/SearchBar';
 
 export default function ProductsTable() {
     const {
-        data: products,
-        isLoading: loading,
+        currPage,
+        setCurrPage,
+        onPublishStatusChange,
+        handleDeleteProduct,
+        totalEntries,
+        products,
         refetch,
-    } = useQuery<FullProduct[]>({
-        initialData: [],
-        queryKey: productKeys.GET_ALL_PRODUCTS,
-        queryFn: () => fetchAllProducts(),
-    });
+        pageSize,
+        query,
+        setQuery,
+        isFetching,
+    } = useProductsTable();
 
-    const handleDeleteProduct = async (id: Product['id']) => {
-        //TODO: Add debounce in deleting product
-        toast.loading('Deleting product..');
-        const results = await deleteProduct(id);
-        toast.dismissAll();
-        if (results instanceof Error) toast.error(results.message);
-        else toast.success('Product deleted successfully');
-        refetch();
-    };
-
-    const onPublishStatusChange = async (productId: Product['id'], val: boolean) => {
-        await markProductPublished(productId, val);
-        refetch();
-    };
-
-    return loading ? (
-        <p className='text-muted-foreground'>Loading...</p>
-    ) : products.length === 0 ? (
-        <p className='text-muted-foreground'>No products yet</p>
-    ) : (
+    return (
         <div className='overflow-x-auto'>
-            <table className='w-full text-sm'>
-                <thead>
-                    <tr className='border-b border-sidebar-border'>
-                        <th className='text-left py-3 px-4 font-light text-foreground'>Title</th>
-                        <th className='text-left py-3 px-4 font-light text-foreground'>Price</th>
-                        <th className='text-left py-3 px-4 font-light text-foreground'>Category</th>
-                        <th className='text-left py-3 px-4 font-light text-foreground'>
-                            Sub-Category
-                        </th>
-                        <th className='text-left py-3 px-4 font-light text-foreground'>
-                            Published
-                        </th>
-                        <th className='text-right py-3 px-4 font-light text-foreground'>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {products.map((product, index) => {
-                        return (
-                            <tr
-                                key={product.id}
-                                className={cn(
-                                    'border-b border-sidebar-border transition-colors',
-                                    'hover:bg-sidebar/60',
-                                    index % 2 === 0 && 'bg-sidebar/20'
-                                )}
-                            >
-                                {/* Image */}
-                                <td className='py-3 px-4 flex items-center gap-4'>
-                                    <div className='h-12 w-12 overflow-hidden rounded-md border bg-muted'>
-                                        {product.assets[0] ? (
-                                            <Image
-                                                src={product.assets[0].url}
-                                                alt={product.title}
-                                                className='h-full w-full object-cover transition-transform duration-200 hover:scale-110'
-                                                width={500}
-                                                height={500}
-                                                loading='lazy'
-                                            />
-                                        ) : (
-                                            <div className='flex h-full w-full items-center justify-center text-xs text-muted-foreground'>
-                                                No image
-                                            </div>
+            <SearchBar
+                onChange={(e) => {
+                    setQuery(e.target.value);
+                    setCurrPage(1);
+                }}
+                query={query}
+                isFetching={isFetching}
+            />
+            {isFetching ? (
+                <p className='text-muted-foreground mt-6'>Loading...</p>
+            ) : products.length === 0 ? (
+                <p className='text-muted-foreground mt-6'>No products yet</p>
+            ) : (
+                <>
+                    <Table className='w-full text-sm'>
+                        <TableHeader>
+                            <TableRow className='border-b border-sidebar-border'>
+                                <TableHead className='text-left py-3 px-4 font-light text-foreground'>
+                                    Title
+                                </TableHead>
+                                <TableHead className='text-left py-3 px-4 font-light text-foreground'>
+                                    Price
+                                </TableHead>
+                                <TableHead className='text-left py-3 px-4 font-light text-foreground'>
+                                    Category
+                                </TableHead>
+                                <TableHead className='text-left py-3 px-4 font-light text-foreground'>
+                                    Sub-Category
+                                </TableHead>
+                                <TableHead className='text-left py-3 px-4 font-light text-foreground'>
+                                    Published
+                                </TableHead>
+                                <TableHead className='text-right py-3 px-4 font-light text-foreground'>
+                                    Actions
+                                </TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {products.map((product, index) => {
+                                return (
+                                    <TableRow
+                                        key={product.id}
+                                        className={cn(
+                                            'border-b border-sidebar-border transition-colors',
+                                            'hover:bg-sidebar/60',
+                                            index % 2 === 0 && 'bg-sidebar/20'
                                         )}
-                                    </div>
-                                    <div className=''>
-                                        <p className='font-medium text-foreground leading-none'>
-                                            {product.title}
-                                        </p>
-                                        <p className='mt-1 text-xs text-muted-foreground'>
-                                            #{product.slug}
-                                        </p>
-                                    </div>
-                                </td>
+                                    >
+                                        {/* Image */}
+                                        <TableCell className='py-3 px-4 flex items-center gap-4'>
+                                            <div className='h-12 w-12 overflow-hidden rounded-md border bg-muted'>
+                                                {product.assets[0] ? (
+                                                    <Image
+                                                        src={product.assets[0].url}
+                                                        alt={product.title}
+                                                        className='h-full w-full object-cover transition-transform duration-200 hover:scale-110'
+                                                        width={500}
+                                                        height={500}
+                                                        loading='lazy'
+                                                    />
+                                                ) : (
+                                                    <div className='flex h-full w-full items-center justify-center text-xs text-muted-foreground'>
+                                                        No image
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className=''>
+                                                <p className='font-medium text-foreground leading-none'>
+                                                    {product.title}
+                                                </p>
+                                                <p className='mt-1 text-xs text-muted-foreground'>
+                                                    #{product.slug}
+                                                </p>
+                                            </div>
+                                        </TableCell>
 
-                                {/* Price */}
-                                <td className='py-3 px-4 text-foreground'>
-                                    <div className='flex flex-col'>
-                                        <span className='font-medium'>
-                                            Rs. {product.minPrice.toFixed(2)}
-                                        </span>
-                                    </div>
-                                </td>
+                                        {/* Price */}
+                                        <TableCell className='py-3 px-4 text-foreground'>
+                                            <div className='flex flex-col'>
+                                                <span className='font-medium'>
+                                                    Rs. {product.minPrice.toFixed(2)}
+                                                </span>
+                                            </div>
+                                        </TableCell>
 
-                                {/* Category */}
-                                <td className='py-3 px-4'>
-                                    <span className='inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary'>
-                                        {product.category.name}
-                                    </span>
-                                </td>
+                                        {/* Category */}
+                                        <TableCell className='py-3 px-4'>
+                                            <span className='inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary'>
+                                                {product.category.name}
+                                            </span>
+                                        </TableCell>
 
-                                {/* Sub Category */}
-                                <td className='py-3 px-4'>
-                                    <span className='inline-flex items-center rounded-full bg-secondary/10 px-3 py-1 text-xs font-medium text-secondary-foreground'>
-                                        {product.subCategory.name}
-                                    </span>
-                                </td>
-                                <td className='py-3 px-4'>
-                                    <Switch
-                                        checked={product.isPublished}
-                                        onCheckedChange={(val) =>
-                                            onPublishStatusChange(product.id, val)
-                                        }
-                                    />
-                                </td>
-                                {/* Actions */}
-                                <td className='py-3 px-4'>
-                                    <div className='flex justify-end gap-2'>
-                                        <EditProduct refetch={refetch} product={product} />
-                                        <ConfirmationBox
-                                            trigger={
-                                                <div className='hover:text-destructive hover:bg-red-200 cursor-pointer bg-red-100 p-2 border-0 rounded-sm'>
-                                                    <Trash2 size={16} />
-                                                </div>
-                                            }
-                                            title='Delete Product'
-                                            description='Are you sure you want to delete the product?'
-                                            onRevoke={() => handleDeleteProduct(product.id)}
-                                            revokeButtonText='Delete'
-                                            cancelButtonText='Cancel'
-                                        />
-                                    </div>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                                        {/* Sub Category */}
+                                        <TableCell className='py-3 px-4'>
+                                            <span className='inline-flex items-center rounded-full bg-secondary/10 px-3 py-1 text-xs font-medium text-secondary-foreground'>
+                                                {product.subCategory.name}
+                                            </span>
+                                        </TableCell>
+                                        <TableCell className='py-3 px-4'>
+                                            <Switch
+                                                checked={product.isPublished}
+                                                onCheckedChange={(val) =>
+                                                    onPublishStatusChange(product.id, val)
+                                                }
+                                            />
+                                        </TableCell>
+                                        {/* Actions */}
+                                        <TableCell className='py-3 px-4'>
+                                            <div className='flex justify-end gap-2'>
+                                                <EditProduct refetch={refetch} product={product} />
+                                                <ConfirmationBox
+                                                    trigger={
+                                                        <div className='hover:text-destructive hover:bg-red-200 cursor-pointer bg-red-100 p-2 border-0 rounded-sm'>
+                                                            <Trash2 size={16} />
+                                                        </div>
+                                                    }
+                                                    title='Delete Product'
+                                                    description='Are you sure you want to delete the product?'
+                                                    onRevoke={() => handleDeleteProduct(product.id)}
+                                                    revokeButtonText='Delete'
+                                                    cancelButtonText='Cancel'
+                                                />
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                    <Pagination
+                        total={totalEntries}
+                        pageSize={pageSize}
+                        page={currPage}
+                        setPage={setCurrPage}
+                    />
+                </>
+            )}
         </div>
     );
 }

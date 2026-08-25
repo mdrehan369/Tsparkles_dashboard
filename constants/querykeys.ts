@@ -17,3 +17,8 @@ export const orderKeys = {
     GET_ORDERS: ['GET_ORDERS'],
     ORDER_STATUS_COUNTS: ['ORDER_STATUS_COUNTS'],
 };
+
+export const customerKeys = {
+    GET_CUSTOMERS: ['GET_CUSTOMERS'],
+    METRICS: ['CUSTOMER_METRICS'],
+};
